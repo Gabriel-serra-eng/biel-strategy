@@ -1,0 +1,21 @@
+:root{
+  /* ---- Base: preto e cinzas ---- */
+  --black-950:#050505;--black-900:#0A0A0A;--black-850:#101010;--black-800:#141414;--black-750:#1A1A1A;--black-700:#1F1F1F;--black-600:#242424;--black-500:#2E2E2E;
+  --white:#FFFFFF;--gray-100:#E6E6E6;--gray-200:#C9C9C9;--gray-300:#B3B3B3;--gray-400:#8C8C8C;--gray-500:#6E6E6E;--gray-600:#4A4A4A;
+
+  /* ---- Carmesim (única cor de destaque da marca) ---- */
+  --carmesim-700:#A31036;--carmesim-600:#C2143E;--carmesim-500:#E21D48;--carmesim-400:#F04A6C;--carmesim-tint:rgba(226,29,72,.12);--carmesim-glow:rgba(226,29,72,.35);
+
+  /* ---- Verde valor: USO EXCLUSIVO no valor de investimento. Proibido em qualquer outro lugar. ---- */
+  --verde-valor:#24B888;
+
+  /* ---- Aliases semânticos ---- */
+  --surface-page:var(--black-900);--surface-card:var(--black-800);--surface-raised:var(--black-750);--surface-subtle:var(--black-850);--surface-hover:var(--black-700);--surface-press:var(--black-600);
+  --text-strong:var(--white);--text-body:var(--gray-300);--text-muted:var(--gray-400);--text-faint:var(--gray-500);--text-on-accent:var(--white);--text-inverse:var(--black-900);
+  --text-accent:var(--carmesim-500);--text-link:var(--carmesim-500);--text-link-hover:var(--carmesim-400);
+  --border-hairline:#242424;--border-muted:#333333;--border-strong:#4A4A4A;--border-accent:var(--carmesim-500);
+  --fill-accent:var(--carmesim-500);--fill-accent-hover:var(--carmesim-400);--fill-accent-press:var(--carmesim-600);
+  --fill-invert:var(--white);--fill-invert-hover:var(--gray-100);--fill-invert-press:var(--gray-200);
+  --focus-ring:var(--carmesim-500);
+  --rule-accent:var(--carmesim-500);
+}

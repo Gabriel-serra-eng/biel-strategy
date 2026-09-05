@@ -1,0 +1,7 @@
+:root{
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:128px;
+  --gutter-card:var(--space-6);--gutter-section:var(--space-9);--page-max:1160px;--measure:62ch;
+  /* Respiro do slide: margem fixa de 8% da largura */
+  --slide-pad-x:104px;--slide-pad-y:76px;
+  --control-h-sm:34px;--control-h-md:44px;--control-h-lg:54px;
+}
