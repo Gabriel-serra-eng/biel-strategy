@@ -1,6 +1,7 @@
 "use client";
 
-import { Reveal, Button, scrollToSection, Pending, Wordmark } from "@/components/ui";
+import { Reveal, Pending, Wordmark } from "@/components/ui";
+import { LeadForm } from "@/components/sections/lead-form/LeadForm";
 
 export function Fechamento() {
   return (
@@ -14,11 +15,7 @@ export function Fechamento() {
           <br />
           <span className="ac">preparado.</span>
         </h2>
-        <div className="fim-cta">
-          <Button variant="outline" size="lg" onClick={() => scrollToSection("contato")}>
-            Vamos começar?
-          </Button>
-        </div>
+        <LeadForm />
         <div className="fim-meta">
           <div>
             <span>WhatsApp comercial</span>
