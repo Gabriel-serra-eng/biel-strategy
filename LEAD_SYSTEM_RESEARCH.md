@@ -4,6 +4,7 @@
 > **Status:** Pesquisa concluída. Nenhum código, dependência, configuração ou conteúdo do projeto foi alterado.
 > **Não altera:** `RESEARCH.md`, `IMPLEMENTATION.md`, componentes, design, layout, estilos, dependências.
 > **Metodologia:** pesquisa feita com WebSearch/WebFetch em três frentes paralelas (Google Ads, Meta Ads, Armazenamento+LGPD+Segurança), priorizando documentação oficial (`support.google.com`, `developers.google.com`, `developers.facebook.com`) e, quando não disponível oficialmente, fontes técnicas secundárias sinalizadas como tal. Pesquisa realizada em setembro/2026.
+> **Atualização (v2):** escopo ampliado a pedido do autor do projeto — o formulário deixa de ser um captador de contato simples e passa a operar como um **pré-diagnóstico comercial curto**, produzindo sinais de FIT/dor/intenção/maturidade/capacidade além do contato. A seção **01-A** abaixo documenta essa estrutura; as seções 05, 06 e 14 foram atualizadas para refletir os novos campos e o `[VALIDAR SCORE]` correspondente. Nenhuma outra parte da pesquisa original (Google/Meta Ads, comparação de armazenamento, LGPD, segurança) muda de conclusão — os novos campos só enriquecem o mesmo registro de lead no mesmo Supabase.
 
 ---
 
@@ -35,6 +36,77 @@ Os identificadores de clique/campanha só têm valor se forem **capturados no pr
 | `landing_page` | Contexto da primeira página vista | Recomendado |
 | `referrer` | Debug de origem quando não há UTM | Opcional |
 | `timestamp` do primeiro contato | Base para a janela de atribuição (Google: 90 dias) | Essencial |
+
+---
+
+## 01-A. Formulário como pré-diagnóstico comercial
+
+> Adendo à pesquisa original, incorporando a decisão do autor do projeto: o formulário não é mais tratado como "capturar contato" — é tratado como "capturar contato + contexto comercial suficiente para priorizar o lead antes da primeira conversa". Isso não muda a arquitetura de armazenamento/atribuição já recomendada (seções 02-04, 08-09) — apenas amplia o que é gravado no mesmo registro do Supabase.
+
+### Objetivo
+
+Capturar, no mesmo formulário, com o mínimo de fricção possível: contato → negócio → dor principal → situação atual/maturidade → histórico → objetivo → momento (intenção) → capacidade de investimento. O resultado esperado não é mais "João — Empresa X — WhatsApp", e sim um resumo comercial que o gestor lê **antes** de abrir a conversa (exemplo completo na seção 22 revisada abaixo).
+
+**Princípio de fricção (definido pelo autor do projeto, mantido aqui como restrição de design, não de implementação):** priorizar perguntas de alto valor com resposta rápida (seleção, não digitação) e lógica condicional; campos abertos só onde geram contexto real (`previous_marketing_problem`, `business_goal`). Evitar questionário longo — a experiência deve continuar parecendo parte do site cinematográfico/editorial do Biel_Strategy, não um formulário de geração de leads genérico. **O Design visual atual não muda** — a forma como as etapas aparecem (uma tela por vez, accordion, wizard dentro da seção de contato existente etc.) é decisão de implementação futura, fora do escopo desta pesquisa.
+
+### Estrutura conceitual em etapas
+
+| Etapa | Tema | Campos capturados | Observação |
+| :--- | :--- | :--- | :--- |
+| 01 | O negócio | `name`, `company`, `segment`, `location`, `instagram_url`/`website_url` (opcional) | Determina FIT. Segmento com opções rápidas (Saúde, Beleza/Estética, Alimentação, Varejo, Serviços, E-commerce, Educação, Tecnologia, Outro) — **sem restringir** o Biel_Strategy a um nicho único, conforme o posicionamento atual do site |
+| 02 | O desafio | `primary_need` (escolha única) | Sinal mais importante de qualificação, segundo a própria especificação do autor |
+| 03 | Situação atual | `current_acquisition_channel`, `marketing_maturity` | Duas perguntas curtas de seleção |
+| 04 | Histórico | `previous_marketing_attempt` (sim/não) → se sim, `previous_marketing_problem` (texto curto) | Único campo aberto além do objetivo; usado para **contextualizar**, não julgar o lead |
+| 05 | Objetivo | `business_goal` (texto livre curto, com placeholder de exemplo) | Preservar a resposta original do usuário — **não gerar interpretação automática que a substitua** |
+| 06 | Momento/intenção | `purchase_timeline` (escolha única) | Sinal de intenção/urgência |
+| 07 | Investimento | `marketing_budget_range` (escolha única) | Nunca tratar orçamento baixo como "lead ruim" isoladamente — só faz sentido combinado com FIT+dor+intenção+maturidade+objetivo |
+| 08 | Contato | `name` (confirma), `whatsapp`, `email`, `preferred_contact_channel` | Fica por último, depois que o lead já investiu contexto — reduz abandono nas primeiras etapas |
+
+*(Nota de consistência: o resumo de alto nível pedido pelo autor lista 6 "capítulos" — Negócio, Desafio, Situação Atual, Objetivo, Momento, Contato —, enquanto a especificação detalhada campo a campo descreve 8 etapas, separando Histórico da Situação Atual e Investimento do Momento. A tabela acima segue a versão detalhada de 8 etapas, que é a que efetivamente define os campos; a fusão visual em menos telas — por exemplo, Situação Atual + Histórico numa mesma tela — é uma decisão de UI a ser tomada na implementação, não de dado.)*
+
+### Lógica condicional
+
+Mínima, e só onde muda a qualidade do dado — consistente com o princípio de fricção acima:
+
+- `previous_marketing_attempt = SIM` → revela `previous_marketing_problem`.
+- Opcionalmente, `marketing_maturity` indicando investimento atual → pode revelar uma pergunta de contexto adicional sobre o investimento em curso, **somente se isso realmente melhorar a qualificação** (o autor do projeto explicitamente pede para não multiplicar ramificações condicionais).
+
+### Lead score / lead temperature — proposta inicial, `[VALIDAR SCORE]`
+
+O pedido original é claro: o score deve indicar **prioridade comercial**, não um veredito automático de "bom/ruim" lead, a metodologia exata precisa ser documentada antes de virar definitiva, e não se deve inventar uma fórmula complexa sem necessidade. Esta pesquisa **não encontrou, nem em `RESEARCH.md` nem em `IMPLEMENTATION.md`, uma metodologia de pontuação já definida** — portanto o que segue é uma **proposta inicial transparente** (soma de sinais discretos, sem machine learning, totalmente auditável), marcada como pendente de validação antes de ser implementada:
+
+| Dimensão | Sinal de origem | Peso sugerido (proposta) |
+| :--- | :--- | :--- |
+| FIT | `segment` está entre os segmentos historicamente atendidos (ex. estética, saúde, alimentação — conforme cases em `RESEARCH.md`) | +1 |
+| DOR | `primary_need` preenchido com uma necessidade específica (vs. "Outro" vazio) | +1 |
+| INTENÇÃO | `purchase_timeline` — ver faixa de pontos | +2 se "o quanto antes"/"próximos 7 dias"; +1 se "próximos 30 dias"; 0 se "apenas pesquisando"/"ainda não tenho certeza" |
+| MATURIDADE | `marketing_maturity` = "invisto todos os meses"/"já tenho estrutura" | +1 (sinaliza que entende o jogo, não necessariamente prioridade maior) |
+| CAPACIDADE | `marketing_budget_range` acima do piso mínimo de operação (valor de referência ainda não definido no Research) | +1 |
+| OBJETIVO | `business_goal` preenchido com texto específico (não vazio/genérico) | +1 |
+| HISTÓRICO | `previous_marketing_attempt = SIM` com `previous_marketing_problem` preenchido | +1 (mais contexto, não penalidade) |
+
+Faixas sugeridas (proposta, não definitiva): **0-2 → NURTURE/LOW · 3-5 → WARM/MEDIUM · 6+ → HOT/HIGH**. Isso é deliberadamente simples (soma, sem multiplicadores ou pesos negativos) para ficar auditável por qualquer pessoa olhando o registro no Supabase — mas **`[VALIDAR SCORE]`: os pesos, o valor de referência de orçamento "baixo" e os próprios nomes das faixas (`HIGH/MEDIUM/LOW` vs. `HOT/WARM/NURTURE`) precisam ser confirmados pelo autor do projeto antes de qualquer implementação.**
+
+### Campos derivados vs. campos originais
+
+Por instrução explícita do autor: `lead_score` e `lead_temperature` são uma **camada derivada**, calculada a partir das respostas — nunca substituem ou sobrescrevem os campos originais (`primary_need`, `business_goal` etc., que continuam gravados como o usuário respondeu). Isso também vale para `FIT`/`INTENT`/`MATURITY`/`URGENCY`: se algum dia forem materializados como colunas separadas (em vez de calculados sob demanda a partir dos campos brutos), devem coexistir com as respostas originais, nunca as substituir.
+
+### Exemplo de leitura comercial do lead (substitui o exemplo da seção 22 original)
+
+```
+LEAD #XXXX
+Empresa: Studio X · Segmento: Estética
+Principal desafio: gerar mais agendamentos
+Aquisição atual: Instagram · Maturidade: já investe em marketing
+Histórico: anúncios sem o retorno esperado
+Objetivo (texto do lead): "aumentar agendamentos nos próximos 3 meses"
+Momento: próximos 7 dias · Investimento: R$1.000–3.000/mês
+Score: HOT (proposta — ver [VALIDAR SCORE] acima)
+Origem: Google Ads / campanha X (gclid presente)
+Contato preferido: WhatsApp
+```
+
+Isso permite ao gestor entender quem é o lead, o que ele quer, o que já tentou e qual o momento de compra **antes** de abrir a conversa — sem que o formulário tenha decidido sozinho que o lead está "qualificado" (essa decisão continua sendo humana, ver seção 06 atualizada abaixo).
 
 ---
 
@@ -155,6 +227,25 @@ CAPI **não contorna** exigência legal de consentimento — dados só podem ser
 
 Campos como `gbraid`/`wbraid` e `conversion_value` aparecem no diagrama conceitual do pedido original, mas **não deveriam ser tratados como obrigatórios por padrão** — construir o schema para exigi-los sem necessidade real adiciona complexidade sem benefício.
 
+#### Campos de qualificação comercial (adendo — pré-diagnóstico, seção 01-A)
+
+| Campo | Classificação | Por quê |
+| :--- | :--- | :--- |
+| `segment` | Recomendado | Sinal de FIT — usado no score proposto, mas o lead pode existir sem ele |
+| `location` | Opcional | Contexto (relevante para negócios locais, ver cases do `RESEARCH.md`), não bloqueia captura |
+| `instagram_url` / `website_url` | Opcional | Contexto adicional para qualificação manual, explicitamente opcional na especificação |
+| `primary_need` | **Recomendado (forte)** | "Extremamente importante para a qualificação" — mas o lead ainda é válido sem resposta (evitar bloquear o submit por isso) |
+| `current_acquisition_channel` | Recomendado | Sinal de maturidade/situação atual |
+| `marketing_maturity` | Recomendado | Idem — entra no score proposto |
+| `previous_marketing_attempt` (+ `previous_marketing_problem` se sim) | Opcional | Campo condicional; contextualiza, não deve bloquear o formulário |
+| `business_goal` | Recomendado | Texto original do usuário — preservado sem reinterpretação automática |
+| `purchase_timeline` | Recomendado | Sinal de intenção/urgência, peso alto no score proposto |
+| `marketing_budget_range` | Recomendado | Nunca usado isoladamente para desqualificar (ver seção 01-A) |
+| `preferred_contact_channel` | Opcional | Facilita operação, não é crítico para o dado existir |
+| `lead_score`, `lead_temperature` | Opcional / **derivado** | Camada calculada, não capturada diretamente do usuário — `[VALIDAR SCORE]`, ver seção 01-A |
+
+Diferente dos campos de contato (nome/e-mail/telefone), nenhum desses campos de qualificação deveria **bloquear o envio do formulário** se ficar em branco — isso violaria o próprio princípio de baixa fricção definido na seção 01-A. Eles enriquecem o registro quando preenchidos, mas o lead precisa ser salvo mesmo que o visitante abandone antes da última etapa (ver observação sobre etapas parciais na seção 01-A/06).
+
 ---
 
 ## 06. Ciclo de vida do lead
@@ -168,6 +259,8 @@ Essa estrutura (idêntica ao padrão de pipeline de CRMs como HubSpot/Pipedrive)
 
 - **`LOST` pode ocorrer a partir de qualquer estágio**, não só de `PROPOSAL` — vale modelar como um status terminal alcançável de `CONTACTED` ou `QUALIFIED` também (nem todo lead que não responde chega a receber proposta).
 - Cada transição de status relevante para Ads (`QUALIFIED`, `WON`) precisa gravar seu próprio timestamp (`qualified_at`, `converted_at`) — é isso que alimenta o reenvio de conversão às plataformas (seção 07), não o status em si.
+
+**Reforço do adendo (seção 01-A):** todo lead entra como `status = NEW`, independentemente do `lead_score`/`lead_temperature` calculado a partir do pré-diagnóstico. Um score `HOT` é um sinal de **prioridade de atendimento**, não uma qualificação automática — a transição para `QUALIFIED` (e o timestamp `qualified_at`) continua sendo uma decisão humana, feita depois da conversa real com o lead. Isso evita que o formulário "minta" para as plataformas de anúncio declarando conversões que na prática nunca foram qualificadas por alguém.
 
 ---
 
@@ -339,11 +432,18 @@ Essa separação é o que permite implementar o sistema depois **sem tocar em ne
         (Camada 4) grava em SUPABASE (Postgres)
         lead_id, dados de contato, UTMs, gclid/fbclid,
         consent + timestamp, status = NEW
+        + pré-diagnóstico (seção 01-A): segment, primary_need,
+          current_acquisition_channel, marketing_maturity,
+          previous_marketing_attempt/problem, business_goal,
+          purchase_timeline, marketing_budget_range
+        + lead_score / lead_temperature (derivado, [VALIDAR SCORE])
                              │
               ┌──────────────┴───────────────┐
               ▼                               ▼
-     time comercial atualiza          (assíncrono, não bloqueia
-     status manualmente                 o submit do formulário)
+     time comercial lê o resumo comercial   (assíncrono, não bloqueia
+     (seção 01-A) e atualiza status           o submit do formulário)
+     manualmente — o score prioriza,
+     não qualifica sozinho
      NEW→CONTACTED→QUALIFIED→
         PROPOSAL→WON/LOST
               │
@@ -352,13 +452,16 @@ Essa separação é o que permite implementar o sistema depois **sem tocar em ne
    lê leads com status alterado + gclid/fbclid presentes
    normaliza + hasheia (SHA-256) e-mail/telefone
               │
-      ┌───────┴────────┐
-      ▼                ▼
- Google Ads:        Meta Ads:
- Data Manager API   Conversions API for CRM
- (Enhanced          (evento associado ao
- Conversions for    Lead ID / email+phone
- Leads)             hash)
+      ┌───────┴────────┬───────────────┐
+      ▼                ▼               ▼
+ Google Ads:        Meta Ads:      (futuro, [VALIDAR])
+ Data Manager API   Conversions    LIBRA CRM — só se/quando
+ (Enhanced          API for CRM    houver API/webhook real;
+ Conversions for    (evento        nenhuma integração deve
+ Leads)             associado ao   ser assumida sem isso
+                     Lead ID /
+                     email+phone
+                     hash)
 ```
 
 ### Por que essa arquitetura?
@@ -394,9 +497,12 @@ Supabase dá um banco relacional real por custo zero no estágio atual, com cami
 
 - `[VALIDAR]` Qual plataforma de anúncios entra primeiro (Google Ads, Meta Ads, ou ambas desde o início) — afeta a ordem de implementação da Camada 5.
 - `[VALIDAR]` Prazo de retenção de leads não convertidos (decisão de negócio + jurídica).
-- `[VALIDAR]` Se have alguém dedicado a atualizar manualmente o status do lead (`CONTACTED`→`WON`/`LOST`) ou se isso precisa de uma UI própria desde o início.
+- `[VALIDAR]` Se há alguém dedicado a atualizar manualmente o status do lead (`CONTACTED`→`WON`/`LOST`) ou se isso precisa de uma UI própria desde o início.
 - `[VALIDAR]` Texto final de consentimento e política de privacidade (revisão jurídica antes de publicar).
 - `[VALIDAR]` Se `conversion_value` será usado (exige decidir se/como expor valor de negócio, respeitando a governança de dados financeiros já definida no `RESEARCH.md`).
+- `[VALIDAR SCORE]` Metodologia final de `lead_score`/`lead_temperature` (seção 01-A) — a proposta desta pesquisa é um ponto de partida transparente, não uma fórmula definitiva; pesos, faixas e o valor de referência de "orçamento baixo" precisam de confirmação do autor do projeto.
+- `[VALIDAR]` Como as 8 etapas conceituais (seção 01-A) se agrupam em telas reais — quantas telas, o que fica junto na mesma tela, e o que acontece com um lead que abandona no meio (grava parcial em `status = NEW` com campos em branco, ou só grava no fim?). É uma decisão de UX/implementação, não de dado.
+- `[VALIDAR]` Se/quando a integração com o **Libra CRM** (seção 23 do pedido original) terá API ou webhook real disponível — nenhuma integração deve ser presumida ou construída sem essa confirmação.
 
 ---
 
