@@ -22,13 +22,26 @@
 
 # misc
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 *.pem
 
-# debug
+# editors/IDEs
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# debug / logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # env files (can opt-in for committing if needed)
 .env*
