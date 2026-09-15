@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# design handoff bundle (referência local do Claude Design; não vai para o
+# repositório — inclui capturas de sites de terceiros usadas como referência
+# visual durante a sessão de design)
+/design_import/
+
 # next.js
 /.next/
 /out/
