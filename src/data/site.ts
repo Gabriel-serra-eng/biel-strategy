@@ -159,9 +159,9 @@ export const CASOS: Caso[] = [
       { rotulo: "Gerenciador de anúncios", legenda: "Print real da campanha" },
       { rotulo: "Salão / Cássia", legenda: "Foto real do salão ou da Cássia" },
     ],
-    metaTitulo: "A próxima meta — +100 leads em 60 dias",
+    metaTitulo: "+100 leads em 60 dias",
     metaTexto:
-      "Uma meta de aquisição construída a partir de mídia paga, otimização contínua e uma estrutura preparada para transformar atenção em oportunidades. É uma meta — não um resultado já obtido nem uma garantia.",
+      "Uma meta de aquisição construída a partir de mídia paga, otimização contínua e uma estrutura preparada para transformar atenção em oportunidades.",
     expansao: [
       { canal: "Meta Ads", descricao: "Geração de demanda e conversas." },
       { canal: "Google Ads", descricao: "Captura de pessoas que já estão procurando por uma solução." },
