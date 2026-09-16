@@ -237,6 +237,7 @@ p{margin:0;text-wrap:pretty}
 .caso-media-photo{position:absolute;inset:0;background:var(--surface-page);overflow:hidden}
 .caso-media-photo-bg{object-fit:cover;transform:scale(1.18);filter:blur(26px) brightness(.55) saturate(1.05)}
 .caso-media-photo-fg{object-fit:contain;filter:contrast(1.03)}
+.caso-media-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .caso-carrossel-cap{font:var(--weight-regular) 11px/1.5 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
 .caso-stats{display:flex;flex-wrap:wrap;gap:clamp(32px,6vw,64px);margin-top:24px}
 .caso-stat-v{display:block;font:var(--weight-black) clamp(34px,4.6vw,56px)/1 var(--font-display);color:var(--carmesim-500);letter-spacing:-.02em}

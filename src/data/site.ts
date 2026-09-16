@@ -109,7 +109,9 @@ export interface CasoCarrosselSlide {
   legenda: string;
   /** Caminho da imagem real (opcional) — sem isso, o slide usa o placeholder padrão. */
   imagem?: string;
-  /** Proporção real da imagem (largura/altura) — o frame se adapta a cada slide para minimizar espaço morto. */
+  /** Caminho de um vídeo real (opcional) — autoplay/loop/mudo, no lugar da imagem. */
+  video?: string;
+  /** Proporção real da imagem/vídeo (largura/altura) — o frame se adapta a cada slide para minimizar espaço morto. */
   aspect?: number;
 }
 
@@ -244,6 +246,16 @@ export const CASOS: Caso[] = [
     a: "Uno desenvolvimento, marketing e estratégia de conversão para criar páginas pensadas desde a origem para receber tráfego pago. A página considera objetivo, público, oferta e comportamento, criando uma experiência orientada à conversão.",
     funil: ["Anúncio", "Landing page", "Ação", "Lead"],
     r: "Planejamento e execução de páginas pensadas para conversão desde a origem — copy, UX/UI, performance, SEO, rastreamento e integrações reunidos em uma única entrega.",
+    carrossel: {
+      slides: [
+        {
+          rotulo: "Landing page em ação",
+          legenda: "Demonstração real da experiência",
+          video: "/casos/landing-demo.mp4",
+          aspect: 720 / 1280,
+        },
+      ],
+    },
     cta: {
       titulo: "Do clique ao lead.",
       texto1: "Não basta comprar tráfego.",

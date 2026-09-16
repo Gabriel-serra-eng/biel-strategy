@@ -206,7 +206,7 @@ export function Casos() {
               className="caso-media"
               ref={frameRef}
               style={
-                slides && slides[slide].imagem
+                slides && (slides[slide].imagem || slides[slide].video)
                   ? { aspectRatio: slides[slide].aspect, overflow: "hidden" }
                   : undefined
               }
@@ -229,7 +229,20 @@ export function Casos() {
                   : undefined
               }
             >
-              {slides && slides[slide].imagem ? (
+              {slides && slides[slide].video ? (
+                <div className="caso-media-photo">
+                  <video
+                    className="caso-media-video"
+                    src={slides[slide].video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    aria-label={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
+                  />
+                </div>
+              ) : slides && slides[slide].imagem ? (
                 <>
                   {outgoing !== null && slides[outgoing]?.imagem ? (
                     <div className="caso-media-photo" ref={outgoingRef}>
@@ -288,7 +301,7 @@ export function Casos() {
                 </>
               )}
             </div>
-            {slides && slides[slide].imagem ? (
+            {slides && (slides[slide].imagem || slides[slide].video) ? (
               <span className="caso-carrossel-cap">
                 {slides[slide].rotulo} — {slides[slide].legenda}
               </span>
