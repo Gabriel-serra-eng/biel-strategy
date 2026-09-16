@@ -26,8 +26,8 @@ interface SectionTitleProps {
   id?: string;
 }
 
-/** Título de seção: caixa alta, última palavra em carmesim, régua 64×2 (GSAP anima o wipe). */
-export function SectionTitle({ children, accent, size = "lg", rule = true, id }: SectionTitleProps) {
+/** Título de seção: caixa alta, última palavra em carmesim. */
+export function SectionTitle({ children, accent, size = "lg", rule = false, id }: SectionTitleProps) {
   return (
     <div className="sec-title-wrap">
       <h2 id={id} className={"sec-title sec-title-" + size}>

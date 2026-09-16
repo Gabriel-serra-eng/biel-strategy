@@ -46,7 +46,6 @@ export function Hero() {
         <div className="hero-copy">
           <div className="hero-kicker">
             <Wordmark size={13} />
-            <span className="hero-sep" aria-hidden="true" />
             <span className="hero-role">Estrategista de Aquisição &amp; Soluções Digitais</span>
           </div>
           <h1 className="hero-title">
