@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Política de Privacidade | Biel Strategy",
   description:
     "Como o Biel Strategy coleta, usa e armazena os dados enviados pelo formulário de contato.",
+  alternates: {
+    canonical: "/politica-de-privacidade",
+  },
 };
 
 export default function PoliticaDePrivacidadePage() {

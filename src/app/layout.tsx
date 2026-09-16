@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
-import { SITE_META } from "@/data/site";
+import { SITE_META, SITE_URL } from "@/data/site";
 import { WhatsAppButton } from "@/components/sections/WhatsAppButton";
 import "./globals.css";
 
@@ -19,15 +19,31 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  // metadataBase: definir quando o domínio de produção for validado (evita assumir uma URL não confirmada).
+  metadataBase: new URL(SITE_URL),
   title: SITE_META.title,
   description: SITE_META.description,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     title: SITE_META.title,
     description: SITE_META.description,
+    url: "/",
+    siteName: "Biel Strategy",
     type: "website",
     locale: "pt_BR",
-    images: [{ url: "/images/biel-retrato.webp" }],
+    images: [{ url: "/images/biel-retrato.webp", width: 612, height: 912 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -37,17 +53,35 @@ export const metadata: Metadata = {
   },
 };
 
+// Dados reais e já confirmados do projeto — nenhum campo inventado (sem endereço, CNPJ,
+// redes sociais ou avaliações, que o negócio ainda não tem validados).
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Biel Strategy",
-  description: SITE_META.description,
-  areaServed: "BR",
-  founder: {
-    "@type": "Person",
-    name: "Gabriel Serra",
-    jobTitle: "Estrategista de Aquisição & Soluções Digitais",
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "Biel Strategy",
+      url: SITE_URL,
+      inLanguage: "pt-BR",
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Biel Strategy",
+      url: SITE_URL,
+      logo: `${SITE_URL}/brand/eclipse-symbol-512.png`,
+      description: SITE_META.description,
+      email: "conecta@bielstrategy.com",
+      telephone: "+5511920115354",
+      areaServed: "BR",
+      founder: {
+        "@type": "Person",
+        name: "Gabriel Serra",
+        jobTitle: "Estrategista de Aquisição & Soluções Digitais",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

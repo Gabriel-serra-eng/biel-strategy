@@ -309,6 +309,9 @@ export const CHAPTER_IDS: string[] = [
   "contato",
 ];
 
+/** Domínio de produção validado — usado como metadataBase, canonical, robots.txt e sitemap.xml. */
+export const SITE_URL = "https://bielstrategy.com";
+
 export const SITE_META = {
   title: "Biel Strategy | Marketing de Aquisição, Tecnologia & IA",
   description:

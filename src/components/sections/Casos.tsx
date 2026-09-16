@@ -22,7 +22,6 @@ function CasoStatValue({ value }: { value: string }) {
       el.textContent = value;
       return;
     }
-    el.textContent = "0";
     const { gsap, ScrollTrigger } = ensureGsap();
     const counter = { n: 0 };
     const trigger = ScrollTrigger.create({
@@ -30,6 +29,10 @@ function CasoStatValue({ value }: { value: string }) {
       start: "top 88%",
       once: true,
       onEnter: () => {
+        // Só zera o número quando a animação realmente vai rodar (elemento entrou na viewport).
+        // Se isso rodasse incondicionalmente no mount, um crawler que renderiza a página sem
+        // rolar a tela (ex.: Googlebot) poderia indexar "0" no lugar do valor real do resultado.
+        el.textContent = "0";
         gsap.to(counter, {
           n: target,
           duration: 1.4,
