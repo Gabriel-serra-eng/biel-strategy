@@ -154,7 +154,7 @@ export function Casos() {
           <div className="caso-media-wrap">
             <div
               className="caso-media"
-              style={slides && slides[slide].imagem ? { aspectRatio: c.carrossel!.aspect } : undefined}
+              style={slides && slides[slide].aspect ? { aspectRatio: slides[slide].aspect } : undefined}
               onTouchStart={
                 slides
                   ? (e) => {

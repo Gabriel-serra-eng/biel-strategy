@@ -98,12 +98,12 @@ export interface CasoCarrosselSlide {
   legenda: string;
   /** Caminho da imagem real (opcional) — sem isso, o slide usa o placeholder padrão. */
   imagem?: string;
+  /** Proporção real da imagem (largura/altura) — o frame se adapta a cada slide para minimizar espaço morto. */
+  aspect?: string;
 }
 
 export interface CasoCarrossel {
   slides: CasoCarrosselSlide[];
-  /** Proporção do frame (largura/altura da imagem principal) — reduz o espaço morto ao redor das fotos reais. */
-  aspect: string;
 }
 
 export interface CasoExpansaoItem {
@@ -164,14 +164,19 @@ export const CASOS: Caso[] = [
     ],
     statsNota: "Dados registrados no Gerenciador de Anúncios.",
     carrossel: {
-      aspect: "2299 / 1200",
       slides: [
         {
           rotulo: "Gerenciador de anúncios",
           legenda: "Print real da campanha",
           imagem: "/casos/cassia-ads-manager-zoom.webp",
+          aspect: "610 / 88",
         },
-        { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
+        {
+          rotulo: "Salão / Cássia",
+          legenda: "Foto real do salão e da Cássia",
+          imagem: "/casos/cassia-salao.webp",
+          aspect: "2299 / 1200",
+        },
       ],
     },
     metaTitulo: "+100 leads em 60 dias",
