@@ -35,6 +35,10 @@ p{margin:0;text-wrap:pretty}
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px var(--marg);background:linear-gradient(to bottom,rgba(10,10,10,.94),rgba(10,10,10,0));backdrop-filter:blur(6px)}
 .nav-mark{display:inline-flex}
+
+/* marca Eclipse (ícone) + wordmark textual — nav e rodapé */
+.brand-mark{display:inline-flex;align-items:center;gap:.55em}
+.brand-mark-icon{display:block;border-radius:var(--radius-pill);flex:none}
 .nav-links{display:flex;gap:26px;flex-wrap:wrap}
 .nav-links a{font:var(--weight-medium) 12px/1 var(--font-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
 .nav-links a:hover{color:var(--white)}

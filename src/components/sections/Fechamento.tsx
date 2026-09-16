@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, Pending, Wordmark } from "@/components/ui";
+import { Reveal, Pending, BrandMark } from "@/components/ui";
 import { LeadForm } from "@/components/sections/lead-form/LeadForm";
 
 export function Fechamento() {
@@ -33,7 +33,7 @@ export function Fechamento() {
       </Reveal>
       <div className="fim-foot">
         <span>
-          <Wordmark size={12} />
+          <BrandMark iconSize={20} wordmarkSize={12} />
         </span>
         <span>Marketing de aquisição · Tecnologia · IA</span>
       </div>
