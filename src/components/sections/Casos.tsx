@@ -5,6 +5,50 @@ import { Section, SectionTitle, Reveal, Callout, Pending, Button, scrollToSectio
 import { CASOS } from "@/data/site";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 
+/** Contagem de 0 até o valor ao entrar na viewport — mesmo gatilho de scroll do <Reveal>. */
+function CasoStatValue({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const target = parseInt(value.replace(/\D/g, ""), 10);
+    if (Number.isNaN(target)) {
+      el.textContent = value;
+      return;
+    }
+    if (prefersReducedMotion()) {
+      el.textContent = value;
+      return;
+    }
+    el.textContent = "0";
+    const { gsap, ScrollTrigger } = ensureGsap();
+    const counter = { n: 0 };
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top 88%",
+      once: true,
+      onEnter: () => {
+        gsap.to(counter, {
+          n: target,
+          duration: 1.4,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.textContent = String(Math.round(counter.n));
+          },
+        });
+      },
+    });
+    return () => trigger.kill();
+  }, [value]);
+
+  return (
+    <span className="caso-stat-v" ref={ref}>
+      {value}
+    </span>
+  );
+}
+
 export function Casos() {
   const [ab, setAb] = useState(0);
   const [slide, setSlide] = useState(0);
@@ -92,7 +136,7 @@ export function Casos() {
                 <div className="caso-stats">
                   {c.stats.map((s, i) => (
                     <Reveal key={s.rotulo} d={i * 120} className="caso-stat">
-                      <span className="caso-stat-v">{s.valor}</span>
+                      <CasoStatValue value={s.valor} />
                       <span className="caso-stat-l">{s.rotulo}</span>
                     </Reveal>
                   ))}
