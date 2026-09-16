@@ -256,14 +256,19 @@ export function Casos() {
                 <div className="caso-media-photo">
                   <video
                     className="caso-media-video"
-                    src={slides[activeSlide].video}
                     autoPlay
                     loop
                     muted
                     playsInline
                     preload="auto"
                     aria-label={`${slides[activeSlide].rotulo} — ${slides[activeSlide].legenda}`}
-                  />
+                  >
+                    {/* WebM/VP9 primeiro (bem mais leve, mesmo conteúdo/qualidade); MP4/H.264 como
+                        fallback para navegadores sem suporte a VP9 — o browser escolhe a primeira
+                        fonte compatível sozinho, sem baixar as duas. */}
+                    <source src={slides[activeSlide].video!.replace(/\.mp4$/, ".webm")} type="video/webm" />
+                    <source src={slides[activeSlide].video} type="video/mp4" />
+                  </video>
                 </div>
               ) : slides && slides[activeSlide].imagem ? (
                 <>
@@ -274,7 +279,7 @@ export function Casos() {
                         alt=""
                         aria-hidden="true"
                         fill
-                        sizes="(max-width: 860px) 90vw, 40vw"
+                        sizes="128px"
                         className="caso-media-photo-bg"
                       />
                       <Image
@@ -293,7 +298,7 @@ export function Casos() {
                       alt=""
                       aria-hidden="true"
                       fill
-                      sizes="(max-width: 860px) 90vw, 40vw"
+                      sizes="128px"
                       className="caso-media-photo-bg"
                     />
                     <Image
