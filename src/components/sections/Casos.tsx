@@ -53,8 +53,13 @@ function CasoStatValue({ value }: { value: string }) {
 export function Casos() {
   const [ab, setAb] = useState(0);
   const [slide, setSlide] = useState(0);
+  const [outgoing, setOutgoing] = useState<number | null>(null);
   const c = CASOS[ab];
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const incomingRef = useRef<HTMLDivElement | null>(null);
+  const outgoingRef = useRef<HTMLDivElement | null>(null);
+  const countRef = useRef<HTMLSpanElement | null>(null);
   const firstRender = useRef(true);
   const touchStartX = useRef<number | null>(null);
 
@@ -64,6 +69,7 @@ export function Casos() {
       return;
     }
     setSlide(0);
+    setOutgoing(null);
     const el = panelRef.current;
     if (!el || prefersReducedMotion()) return;
     const { gsap } = ensureGsap();
@@ -72,9 +78,51 @@ export function Casos() {
 
   const slides = c.carrossel?.slides;
   function goSlide(next: number) {
-    if (!slides) return;
-    setSlide(Math.max(0, Math.min(slides.length - 1, next)));
+    if (!slides || outgoing !== null) return;
+    const clamped = Math.max(0, Math.min(slides.length - 1, next));
+    if (clamped === slide) return;
+    if (prefersReducedMotion()) {
+      setSlide(clamped);
+      return;
+    }
+    setOutgoing(slide);
+    setSlide(clamped);
   }
+
+  // Crossfade do carrossel: mesma engine/easing já usada no crossfade de troca de case (expo.out) e no
+  // contador de resultados (power2.out) — micro zoom-out no slide que sai, fade+scale suave no que entra,
+  // o frame acompanha a proporção da imagem nova e o indicador 01/02 pisca discretamente junto.
+  useEffect(() => {
+    if (outgoing === null || !slides) return;
+    const { gsap } = ensureGsap();
+    const frameEl = frameRef.current;
+    const inEl = incomingRef.current;
+    const outEl = outgoingRef.current;
+    const fromAspect = slides[outgoing]?.aspect;
+    const toAspect = slides[slide]?.aspect;
+    gsap.killTweensOf([frameEl, inEl, outEl, countRef.current].filter(Boolean));
+    const tl = gsap.timeline({ onComplete: () => setOutgoing(null) });
+    if (frameEl && fromAspect && toAspect && fromAspect !== toAspect) {
+      tl.fromTo(frameEl, { aspectRatio: fromAspect }, { aspectRatio: toAspect, duration: 0.6, ease: "expo.out" }, 0);
+    }
+    if (outEl) {
+      tl.to(outEl, { opacity: 0, scale: 0.97, duration: 0.45, ease: "power2.out" }, 0);
+    }
+    if (inEl) {
+      tl.fromTo(inEl, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+    }
+    if (countRef.current) {
+      tl.fromTo(countRef.current, { opacity: 0.25 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0.08);
+    }
+    // Rede de segurança: garante que o slide anterior nunca fique preso na tela mesmo se o
+    // onComplete do GSAP não disparar (ex.: dupla invocação de efeitos em desenvolvimento).
+    const safety = window.setTimeout(() => setOutgoing(null), 900);
+    return () => {
+      tl.kill();
+      window.clearTimeout(safety);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slide]);
 
   return (
     <Section id="casos" n="03" label="Selected work" className="sec-hero">
@@ -154,7 +202,12 @@ export function Casos() {
           <div className="caso-media-wrap">
             <div
               className="caso-media"
-              style={slides && slides[slide].aspect ? { aspectRatio: slides[slide].aspect } : undefined}
+              ref={frameRef}
+              style={
+                slides && slides[slide].imagem
+                  ? { aspectRatio: slides[slide].aspect, overflow: "hidden" }
+                  : undefined
+              }
               onTouchStart={
                 slides
                   ? (e) => {
@@ -175,23 +228,45 @@ export function Casos() {
               }
             >
               {slides && slides[slide].imagem ? (
-                <div className="caso-media-photo">
-                  <Image
-                    src={slides[slide].imagem!}
-                    alt=""
-                    aria-hidden="true"
-                    fill
-                    sizes="(max-width: 860px) 90vw, 40vw"
-                    className="caso-media-photo-bg"
-                  />
-                  <Image
-                    src={slides[slide].imagem!}
-                    alt={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
-                    fill
-                    sizes="(max-width: 860px) 90vw, 40vw"
-                    className="caso-media-photo-fg"
-                  />
-                </div>
+                <>
+                  {outgoing !== null && slides[outgoing]?.imagem ? (
+                    <div className="caso-media-photo" ref={outgoingRef}>
+                      <Image
+                        src={slides[outgoing].imagem!}
+                        alt=""
+                        aria-hidden="true"
+                        fill
+                        sizes="(max-width: 860px) 90vw, 40vw"
+                        className="caso-media-photo-bg"
+                      />
+                      <Image
+                        src={slides[outgoing].imagem!}
+                        alt=""
+                        aria-hidden="true"
+                        fill
+                        sizes="(max-width: 860px) 90vw, 40vw"
+                        className="caso-media-photo-fg"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="caso-media-photo" ref={incomingRef}>
+                    <Image
+                      src={slides[slide].imagem!}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="(max-width: 860px) 90vw, 40vw"
+                      className="caso-media-photo-bg"
+                    />
+                    <Image
+                      src={slides[slide].imagem!}
+                      alt={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
+                      fill
+                      sizes="(max-width: 860px) 90vw, 40vw"
+                      className="caso-media-photo-fg"
+                    />
+                  </div>
+                </>
               ) : slides ? (
                 <div className="media-placeholder">
                   <span>
@@ -229,7 +304,7 @@ export function Casos() {
                     onClick={() => goSlide(i)}
                   />
                 ))}
-                <span className="caso-carrossel-count">
+                <span className="caso-carrossel-count" ref={countRef}>
                   {String(slide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
                 </span>
               </div>

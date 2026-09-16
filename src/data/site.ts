@@ -99,7 +99,7 @@ export interface CasoCarrosselSlide {
   /** Caminho da imagem real (opcional) — sem isso, o slide usa o placeholder padrão. */
   imagem?: string;
   /** Proporção real da imagem (largura/altura) — o frame se adapta a cada slide para minimizar espaço morto. */
-  aspect?: string;
+  aspect?: number;
 }
 
 export interface CasoCarrossel {
@@ -169,13 +169,13 @@ export const CASOS: Caso[] = [
           rotulo: "Gerenciador de anúncios",
           legenda: "Print real da campanha",
           imagem: "/casos/cassia-ads-manager-zoom.webp",
-          aspect: "610 / 88",
+          aspect: 610 / 88,
         },
         {
           rotulo: "Salão / Cássia",
           legenda: "Foto real do salão e da Cássia",
           imagem: "/casos/cassia-salao.webp",
-          aspect: "2299 / 1200",
+          aspect: 2299 / 1200,
         },
       ],
     },
