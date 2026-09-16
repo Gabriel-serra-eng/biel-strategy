@@ -339,19 +339,25 @@ export function Casos() {
             <h3 className="fim-title">{c.cta.titulo}</h3>
             <p className="fim-lede">{c.cta.texto1}</p>
             <p className="fim-lede">{c.cta.texto2}</p>
-            <p className="fim-lede">{c.cta.texto3}</p>
-            <p className="caso-cta-reforco">
-              {c.cta.reforco1}
-              <br />
-              {c.cta.reforco2}
-            </p>
-            <span className="kicker kicker-accent">{c.cta.tag}</span>
+            {c.cta.texto3 ? <p className="fim-lede">{c.cta.texto3}</p> : null}
+            {c.cta.reforco1 ? (
+              <p className="caso-cta-reforco">
+                {c.cta.reforco1}
+                {c.cta.reforco2 ? (
+                  <>
+                    <br />
+                    {c.cta.reforco2}
+                  </>
+                ) : null}
+              </p>
+            ) : null}
+            {c.cta.tag ? <span className="kicker kicker-accent">{c.cta.tag}</span> : null}
             <div className="fim-cta">
               <Button variant="primary" size="lg" onClick={() => scrollToSection("contato")}>
                 {c.cta.botao}
               </Button>
             </div>
-            <p className="hero-note">{c.cta.nota}</p>
+            {c.cta.nota ? <p className="hero-note">{c.cta.nota}</p> : null}
           </div>
         ) : null}
       </div>

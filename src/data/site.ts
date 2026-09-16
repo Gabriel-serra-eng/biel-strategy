@@ -126,12 +126,12 @@ export interface CasoCta {
   titulo: string;
   texto1: string;
   texto2: string;
-  texto3: string;
-  reforco1: string;
-  reforco2: string;
-  tag: string;
+  texto3?: string;
+  reforco1?: string;
+  reforco2?: string;
+  tag?: string;
   botao: string;
-  nota: string;
+  nota?: string;
 }
 
 export interface Caso {
@@ -236,6 +236,21 @@ export const CASOS: Caso[] = [
     r: "Produto próprio. Fórmulas de pontuação e chaves permanecem internas.",
     oculto: true,
   },
+  {
+    eixo: "Landing Page / Aquisição",
+    t: "O site não é o destino. É parte da estratégia.",
+    sub: "Copy · UX/UI · Performance · SEO · Rastreamento · Integrações",
+    p: "Um anúncio pode gerar o clique. Mas é a experiência depois dele que pode transformar atenção em oportunidade.",
+    a: "Uno desenvolvimento, marketing e estratégia de conversão para criar páginas pensadas desde a origem para receber tráfego pago. A página considera objetivo, público, oferta e comportamento, criando uma experiência orientada à conversão.",
+    funil: ["Anúncio", "Landing page", "Ação", "Lead"],
+    r: "Planejamento e execução de páginas pensadas para conversão desde a origem — copy, UX/UI, performance, SEO, rastreamento e integrações reunidos em uma única entrega.",
+    cta: {
+      titulo: "Do clique ao lead.",
+      texto1: "Não basta comprar tráfego.",
+      texto2: "É preciso ter uma estrutura preparada para recebê-lo e transformá-lo em oportunidade.",
+      botao: "→ Quero construir minha estrutura de aquisição",
+    },
+  },
 ];
 
 export const CERTS: string[] = [
@@ -275,7 +290,6 @@ export const CHAPTER_IDS: string[] = [
   "jornada",
   "marketing",
   "casos",
-  "landing",
   "tecnologia",
   "ia",
   "formacao",
