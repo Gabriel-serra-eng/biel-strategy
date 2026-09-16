@@ -232,6 +232,19 @@ p{margin:0;text-wrap:pretty}
 .media-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,var(--surface-card) 0 2px,var(--surface-page) 2px 14px)}
 .media-placeholder span{font:var(--weight-bold) 10px/1.4 var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);text-align:center;max-width:70%}
 @media(max-width:860px){.caso{grid-template-columns:1fr}}
+.caso-media-wrap{display:flex;flex-direction:column;gap:14px;align-self:start}
+.caso-media-wrap .caso-media{align-self:stretch;width:100%}
+.caso-stats{display:flex;flex-wrap:wrap;gap:clamp(32px,6vw,64px);margin-top:24px}
+.caso-stat-v{display:block;font:var(--weight-black) clamp(34px,4.6vw,56px)/1 var(--font-display);color:var(--carmesim-500);letter-spacing:-.02em}
+.caso-stat-l{display:block;margin-top:10px;font:var(--weight-regular) 13.5px/1.5 var(--font-sans);color:var(--text-muted);max-width:22ch}
+.caso-stats-nota{display:block;margin-top:20px;font:var(--weight-regular) 12px/1.5 var(--font-sans);color:var(--text-faint)}
+.caso-carrossel-nav{display:flex;align-items:center;gap:8px}
+.caso-carrossel-dot{width:14px;height:1px;background:var(--border-strong);border:0;padding:0;cursor:pointer;transition:.5s}
+.caso-carrossel-dot.on{width:26px;background:var(--carmesim-500)}
+.caso-carrossel-count{margin-left:auto;font:var(--weight-bold) 9.5px/1 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint)}
+.caso-cta{margin-top:clamp(64px,10vh,120px);padding-top:clamp(48px,7vh,80px);border-top:1px solid var(--border-hairline)}
+.caso-cta-reforco{margin-top:28px;font:var(--weight-bold) clamp(17px,1.8vw,22px)/1.5 var(--font-sans);color:var(--white)}
+.caso-cta .kicker-accent{display:inline-block;margin-top:22px}
 
 /* stack */
 .niveis{margin-top:clamp(48px,8vh,96px);display:flex;flex-direction:column}

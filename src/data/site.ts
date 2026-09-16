@@ -88,6 +88,33 @@ export const NIVEIS: NivelStack[] = [
   { t: "Fundação", d: "Redes · Linux · Python" },
 ];
 
+export interface CasoStat {
+  valor: string;
+  rotulo: string;
+}
+
+export interface CasoCarrosselSlide {
+  rotulo: string;
+  legenda: string;
+}
+
+export interface CasoExpansaoItem {
+  canal: string;
+  descricao: string;
+}
+
+export interface CasoCta {
+  titulo: string;
+  texto1: string;
+  texto2: string;
+  texto3: string;
+  reforco1: string;
+  reforco2: string;
+  tag: string;
+  botao: string;
+  nota: string;
+}
+
 export interface Caso {
   eixo: string;
   t: string;
@@ -96,18 +123,67 @@ export interface Caso {
   a: string;
   r: string;
   nota?: string;
+  /** Funil de conversão do case (opcional — nem todo case tem essa visualização). */
+  funil?: string[];
+  /** Resultados numéricos do case (opcional). */
+  resultadosRotulo?: string;
+  stats?: CasoStat[];
+  statsNota?: string;
+  /** Carrossel de imagens do case (opcional — sem isso, cai no placeholder único padrão). */
+  carrossel?: CasoCarrosselSlide[];
+  /** Próxima meta do case — sempre tratado como meta, nunca como resultado obtido. */
+  metaTitulo?: string;
+  metaTexto?: string;
+  /** Canais de expansão de aquisição planejados para o case. */
+  expansao?: CasoExpansaoItem[];
+  /** Fechamento/CTA específico do case, como continuação natural. */
+  cta?: CasoCta;
 }
 
 export const CASOS: Caso[] = [
   {
-    eixo: "Marketing / Acquisition",
-    t: "Studio Unna Nail Spa",
-    sub: "Estética premium · Mandaqui, São Paulo",
-    p: "Demanda e serviço prontos; faltava aparecer no momento exato da busca local.",
-    a: "Google Ads de intenção, segmentação por bairro, funil busca → WhatsApp → agendamento, em ciclos de três meses.",
-    r: "Planejador e gestor integral da estratégia. Números comerciais omitidos por governança.",
-    nota:
-      'Nome do cliente sujeito a aprovação — alternativa: "Studio de Beleza & Estética Premium (São Paulo)"',
+    eixo: "Marketing / Aquisição",
+    t: "Cássia · Beleza & Cachos",
+    sub: "Estética especializada · Zona Norte, São Paulo",
+    p: "Transformar presença digital em conversas reais com potenciais clientes. A oportunidade existia — o desafio era criar um caminho entre o anúncio e o contato, colocando a empresa diante das pessoas certas e levando o interesse direto para o WhatsApp.",
+    a: "Construção e gestão de campanhas de Meta Ads orientadas à geração de conversas: segmentação local, testes de criativos, análise de comportamento e otimização contínua do percurso. A estratégia combina marketing, dados e tecnologia para identificar o que gera atenção, interesse e ação — direcionando o investimento para aquilo que apresenta potencial.",
+    r: "Estruturação e gestão integral da campanha de Meta Ads — da segmentação e criativos à otimização contínua do funil anúncio → WhatsApp.",
+    funil: ["Anúncio", "Clique", "WhatsApp", "Oportunidade"],
+    resultadosRotulo: "Em 30 dias",
+    stats: [
+      { valor: "830", rotulo: "cliques gerados pelos anúncios" },
+      { valor: "129", rotulo: "contatos iniciados pelo WhatsApp através dos anúncios" },
+    ],
+    statsNota: "Dados registrados no Gerenciador de Anúncios.",
+    carrossel: [
+      { rotulo: "Gerenciador de anúncios", legenda: "Print real da campanha" },
+      { rotulo: "Salão / Cássia", legenda: "Foto real do salão ou da Cássia" },
+    ],
+    metaTitulo: "A próxima meta — +100 leads em 60 dias",
+    metaTexto:
+      "Uma meta de aquisição construída a partir de mídia paga, otimização contínua e uma estrutura preparada para transformar atenção em oportunidades. É uma meta — não um resultado já obtido nem uma garantia.",
+    expansao: [
+      { canal: "Meta Ads", descricao: "Geração de demanda e conversas." },
+      { canal: "Google Ads", descricao: "Captura de pessoas que já estão procurando por uma solução." },
+      {
+        canal: "TikTok Ads",
+        descricao: "Nova frente de expansão para descoberta, alcance e geração de demanda.",
+      },
+    ],
+    cta: {
+      titulo: "Seu negócio tem um potencial que você ainda não consegue enxergar.",
+      texto1:
+        "Eu entro para descobrir onde ele está, transformar dados em estratégia e usar marketing, tecnologia e IA para construir o caminho até o resultado.",
+      texto2: "Não se trata apenas de colocar anúncios no ar.",
+      texto3:
+        "É entender o seu negócio, o seu público, suas oportunidades e aquilo que pode estar sendo desperdiçado — e transformar isso em uma operação de aquisição capaz de evoluir com os dados.",
+      reforco1: "Você já tem potencial.",
+      reforco2: "Eu vou usar o que você ainda não sabe usar para chegar mais longe.",
+      tag: "Marketing · Tecnologia · IA · Aquisição",
+      botao: "→ Quero descobrir meu potencial",
+      nota:
+        "Uma conversa estratégica para entender onde sua empresa está e quais caminhos podem fazer sentido para o próximo estágio do seu negócio.",
+    },
   },
   {
     eixo: "Marketing / Conversão",
