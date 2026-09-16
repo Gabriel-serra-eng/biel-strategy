@@ -126,6 +126,20 @@ export function Casos() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slide]);
 
+  // Avanço automático do carrossel — reaproveita o mesmo goSlide/crossfade acima, sem nenhuma
+  // lógica de transição nova. Só agenda o próximo avanço depois que o crossfade anterior termina
+  // (outgoing volta a null), para o goSlide agendado nunca ler um "outgoing" desatualizado da
+  // troca anterior. Qualquer interação manual (clique/swipe) também reagenda a partir dali —
+  // nunca quebra o loop.
+  useEffect(() => {
+    if (!slides || slides.length < 2 || prefersReducedMotion() || outgoing !== null) return;
+    const timer = window.setTimeout(() => {
+      goSlide((slide + 1) % slides.length);
+    }, 3800);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slide, slides, outgoing]);
+
   return (
     <Section id="casos" n="03" label="Selected work" className="sec-hero">
       <div className="two-col traj-intro">
