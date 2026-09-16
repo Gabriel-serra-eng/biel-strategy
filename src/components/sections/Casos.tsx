@@ -79,6 +79,12 @@ export function Casos() {
   }, [ab]);
 
   const slides = c.carrossel?.slides;
+  // Ao trocar de aba (ab), `c`/`slides` já refletem o novo caso no mesmo render, mas o estado
+  // `slide` só é resetado para 0 em um useEffect (que roda depois do render). Se o caso anterior
+  // tinha mais slides que o novo (ex.: Cássia no slide 2 → Landing Page com 1 slide só), `slide`
+  // fica temporariamente fora dos limites do novo array e `slides[slide]` é `undefined` — indexar
+  // direto quebra o render inteiro. `activeSlide` mantém o índice sempre válido para o array atual.
+  const activeSlide = slides && slides.length > 0 ? Math.min(slide, slides.length - 1) : 0;
   function goSlide(next: number) {
     if (!slides || outgoing !== null) return;
     const clamped = Math.max(0, Math.min(slides.length - 1, next));
@@ -220,8 +226,8 @@ export function Casos() {
               className="caso-media"
               ref={frameRef}
               style={
-                slides && (slides[slide].imagem || slides[slide].video)
-                  ? { aspectRatio: slides[slide].aspect, overflow: "hidden" }
+                slides && (slides[activeSlide].imagem || slides[activeSlide].video)
+                  ? { aspectRatio: slides[activeSlide].aspect, overflow: "hidden" }
                   : undefined
               }
               onTouchStart={
@@ -243,20 +249,20 @@ export function Casos() {
                   : undefined
               }
             >
-              {slides && slides[slide].video ? (
+              {slides && slides[activeSlide].video ? (
                 <div className="caso-media-photo">
                   <video
                     className="caso-media-video"
-                    src={slides[slide].video}
+                    src={slides[activeSlide].video}
                     autoPlay
                     loop
                     muted
                     playsInline
                     preload="auto"
-                    aria-label={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
+                    aria-label={`${slides[activeSlide].rotulo} — ${slides[activeSlide].legenda}`}
                   />
                 </div>
-              ) : slides && slides[slide].imagem ? (
+              ) : slides && slides[activeSlide].imagem ? (
                 <>
                   {outgoing !== null && slides[outgoing]?.imagem ? (
                     <div className="caso-media-photo" ref={outgoingRef}>
@@ -280,7 +286,7 @@ export function Casos() {
                   ) : null}
                   <div className="caso-media-photo" ref={incomingRef}>
                     <Image
-                      src={slides[slide].imagem!}
+                      src={slides[activeSlide].imagem!}
                       alt=""
                       aria-hidden="true"
                       fill
@@ -288,8 +294,8 @@ export function Casos() {
                       className="caso-media-photo-bg"
                     />
                     <Image
-                      src={slides[slide].imagem!}
-                      alt={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
+                      src={slides[activeSlide].imagem!}
+                      alt={`${slides[activeSlide].rotulo} — ${slides[activeSlide].legenda}`}
                       fill
                       sizes="(max-width: 860px) 90vw, 40vw"
                       className="caso-media-photo-fg"
@@ -299,7 +305,7 @@ export function Casos() {
               ) : slides ? (
                 <div className="media-placeholder">
                   <span>
-                    {slides[slide].rotulo} — {slides[slide].legenda}
+                    {slides[activeSlide].rotulo} — {slides[activeSlide].legenda}
                     <br />
                     <Pending>IMAGEM A VALIDAR</Pending>
                   </span>
@@ -315,9 +321,9 @@ export function Casos() {
                 </>
               )}
             </div>
-            {slides && (slides[slide].imagem || slides[slide].video) ? (
+            {slides && (slides[activeSlide].imagem || slides[activeSlide].video) ? (
               <span className="caso-carrossel-cap">
-                {slides[slide].rotulo} — {slides[slide].legenda}
+                {slides[activeSlide].rotulo} — {slides[activeSlide].legenda}
               </span>
             ) : null}
             {slides ? (
@@ -327,14 +333,14 @@ export function Casos() {
                     key={s.rotulo}
                     type="button"
                     role="tab"
-                    aria-selected={i === slide}
+                    aria-selected={i === activeSlide}
                     aria-label={s.rotulo}
-                    className={"caso-carrossel-dot" + (i === slide ? " on" : "")}
+                    className={"caso-carrossel-dot" + (i === activeSlide ? " on" : "")}
                     onClick={() => goSlide(i)}
                   />
                 ))}
                 <span className="caso-carrossel-count" ref={countRef}>
-                  {String(slide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+                  {String(activeSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
                 </span>
               </div>
             ) : null}
