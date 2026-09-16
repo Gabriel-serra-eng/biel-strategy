@@ -90,11 +90,11 @@ export function Casos() {
               <div className="caso-block">
                 <span className="caso-l">{c.resultadosRotulo ?? "Resultados"}</span>
                 <div className="caso-stats">
-                  {c.stats.map((s) => (
-                    <div key={s.rotulo} className="caso-stat">
+                  {c.stats.map((s, i) => (
+                    <Reveal key={s.rotulo} d={i * 120} className="caso-stat">
                       <span className="caso-stat-v">{s.valor}</span>
                       <span className="caso-stat-l">{s.rotulo}</span>
-                    </div>
+                    </Reveal>
                   ))}
                 </div>
                 {c.statsNota ? <span className="caso-stats-nota">{c.statsNota}</span> : null}
