@@ -44,7 +44,7 @@ export default function PoliticaDePrivacidadePage() {
             pessoa física sem CNPJ constituído até o momento. Para qualquer assunto relacionado a
             este tratamento de dados — dúvidas, correções, exclusão ou qualquer outra solicitação
             — o canal de contato é{" "}
-            <a href="mailto:angelicaisanuncios@gmail.com">angelicaisanuncios@gmail.com</a>.
+            <a href="mailto:conecta@bielstrategy.com">conecta@bielstrategy.com</a>.
           </p>
 
           <h2>2. Quais dados coletamos</h2>
@@ -172,8 +172,9 @@ export default function PoliticaDePrivacidadePage() {
           </p>
           <p>
             Para exercer qualquer um desses direitos, escreva para{" "}
-            <a href="mailto:angelicaisanuncios@gmail.com">angelicaisanuncios@gmail.com</a>.
+            <a href="mailto:conecta@bielstrategy.com">conecta@bielstrategy.com</a>.
           </p>
+          {/* E-mail anterior (angelicaisanuncios@gmail.com) mantido apenas em histórico/git — não exibido no site. */}
 
           <h2>11. Alterações desta política</h2>
           <p>

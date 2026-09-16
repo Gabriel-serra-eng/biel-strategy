@@ -25,9 +25,10 @@ export function Fechamento() {
           </div>
           <div>
             <span>E-mail profissional</span>
-            <a href="mailto:angelicaisanuncios@gmail.com">angelicaisanuncios@gmail.com</a>
+            <a href="mailto:conecta@bielstrategy.com">conecta@bielstrategy.com</a>
           </div>
           {/* LinkedIn · GitHub oculto a pedido — sem link real ainda validado. */}
+          {/* E-mail anterior (angelicaisanuncios@gmail.com) mantido apenas em histórico/git — não exibido no site. */}
         </div>
       </Reveal>
       <div className="fim-foot">
