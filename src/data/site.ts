@@ -161,7 +161,7 @@ export const CASOS: Caso[] = [
       {
         rotulo: "Gerenciador de anúncios",
         legenda: "Print real da campanha",
-        imagem: "/casos/cassia-ads-manager.webp",
+        imagem: "/casos/cassia-ads-manager-zoom.webp",
       },
       { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
     ],
