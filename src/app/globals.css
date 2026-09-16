@@ -310,6 +310,15 @@ p{margin:0;text-wrap:pretty}
 .fim-meta span{font:var(--weight-bold) 10px/1 var(--font-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint)}
 .fim-foot{max-width:var(--maxw);margin:clamp(64px,9vh,110px) auto 0;padding:26px 0 40px;border-top:1px solid var(--border-hairline);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:var(--weight-medium) 11px/1.5 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint)}
 .fim-foot>span:first-child{font-weight:700;color:var(--white)}
+.fim-security{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fim-security-label{color:var(--text-faint)}
+.fim-security-check{display:inline-flex;align-items:center;gap:5px}
+.fim-security-check>span:first-child{color:var(--carmesim-500)}
+.fim-safebrowsing{display:inline-flex;flex-direction:column;gap:3px;text-decoration:none;color:inherit;transition:opacity .2s}
+.fim-safebrowsing:hover{opacity:.72}
+.fim-safebrowsing-label{color:var(--text-faint)}
+.fim-safebrowsing-label>span:first-child{color:var(--carmesim-500)}
+.fim-safebrowsing-status{color:var(--text-faint)}
 
 /* formulário de pré-diagnóstico (lead form) — mesma linguagem visual do resto do site */
 .lf-wrap{margin-top:44px;width:100%;max-width:560px;text-align:left}

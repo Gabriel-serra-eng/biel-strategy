@@ -2,6 +2,8 @@
 
 import { Reveal, BrandMark } from "@/components/ui";
 import { LeadForm } from "@/components/sections/lead-form/LeadForm";
+import { SecurityStatus } from "@/components/sections/SecurityStatus";
+import { SafeBrowsingStatus } from "@/components/sections/SafeBrowsingStatus";
 
 export function Fechamento() {
   return (
@@ -36,6 +38,8 @@ export function Fechamento() {
           <BrandMark iconSize={20} wordmarkSize={12} />
         </span>
         <span>Marketing de aquisição · Tecnologia · IA</span>
+        <SecurityStatus />
+        <SafeBrowsingStatus />
       </div>
     </section>
   );
