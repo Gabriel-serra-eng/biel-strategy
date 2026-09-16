@@ -158,7 +158,11 @@ export const CASOS: Caso[] = [
     ],
     statsNota: "Dados registrados no Gerenciador de Anúncios.",
     carrossel: [
-      { rotulo: "Gerenciador de anúncios", legenda: "Print real da campanha" },
+      {
+        rotulo: "Gerenciador de anúncios",
+        legenda: "Print real da campanha",
+        imagem: "/casos/cassia-ads-manager.webp",
+      },
       { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
     ],
     metaTitulo: "+100 leads em 60 dias",
