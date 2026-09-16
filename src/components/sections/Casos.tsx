@@ -177,10 +177,18 @@ export function Casos() {
                 <div className="caso-media-photo">
                   <Image
                     src={slides[slide].imagem!}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 860px) 90vw, 40vw"
+                    className="caso-media-photo-bg"
+                  />
+                  <Image
+                    src={slides[slide].imagem!}
                     alt={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
                     fill
                     sizes="(max-width: 860px) 90vw, 40vw"
-                    style={{ objectFit: "contain" }}
+                    className="caso-media-photo-fg"
                   />
                 </div>
               ) : slides ? (
