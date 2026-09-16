@@ -70,7 +70,7 @@ export function Casos() {
     gsap.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" });
   }, [ab]);
 
-  const slides = c.carrossel;
+  const slides = c.carrossel?.slides;
   function goSlide(next: number) {
     if (!slides) return;
     setSlide(Math.max(0, Math.min(slides.length - 1, next)));
@@ -154,6 +154,7 @@ export function Casos() {
           <div className="caso-media-wrap">
             <div
               className="caso-media"
+              style={slides && slides[slide].imagem ? { aspectRatio: c.carrossel!.aspect } : undefined}
               onTouchStart={
                 slides
                   ? (e) => {

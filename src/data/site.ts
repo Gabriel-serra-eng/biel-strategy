@@ -100,6 +100,12 @@ export interface CasoCarrosselSlide {
   imagem?: string;
 }
 
+export interface CasoCarrossel {
+  slides: CasoCarrosselSlide[];
+  /** Proporção do frame (largura/altura da imagem principal) — reduz o espaço morto ao redor das fotos reais. */
+  aspect: string;
+}
+
 export interface CasoExpansaoItem {
   canal: string;
   descricao: string;
@@ -132,7 +138,7 @@ export interface Caso {
   stats?: CasoStat[];
   statsNota?: string;
   /** Carrossel de imagens do case (opcional — sem isso, cai no placeholder único padrão). */
-  carrossel?: CasoCarrosselSlide[];
+  carrossel?: CasoCarrossel;
   /** Próxima meta do case — sempre tratado como meta, nunca como resultado obtido. */
   metaTitulo?: string;
   metaTexto?: string;
@@ -157,14 +163,17 @@ export const CASOS: Caso[] = [
       { valor: "129", rotulo: "contatos iniciados pelo WhatsApp através dos anúncios" },
     ],
     statsNota: "Dados registrados no Gerenciador de Anúncios.",
-    carrossel: [
-      {
-        rotulo: "Gerenciador de anúncios",
-        legenda: "Print real da campanha",
-        imagem: "/casos/cassia-ads-manager-zoom.webp",
-      },
-      { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
-    ],
+    carrossel: {
+      aspect: "2299 / 1200",
+      slides: [
+        {
+          rotulo: "Gerenciador de anúncios",
+          legenda: "Print real da campanha",
+          imagem: "/casos/cassia-ads-manager-zoom.webp",
+        },
+        { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
+      ],
+    },
     metaTitulo: "+100 leads em 60 dias",
     metaTexto:
       "Uma meta de aquisição construída a partir de mídia paga, otimização contínua e uma estrutura preparada para transformar atenção em oportunidades.",
