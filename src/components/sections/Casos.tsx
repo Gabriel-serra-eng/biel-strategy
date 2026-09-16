@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Section, SectionTitle, Reveal, Callout, Pending, Button, scrollToSection } from "@/components/ui";
 import { CASOS } from "@/data/site";
@@ -172,7 +173,17 @@ export function Casos() {
                   : undefined
               }
             >
-              {slides ? (
+              {slides && slides[slide].imagem ? (
+                <div className="caso-media-photo">
+                  <Image
+                    src={slides[slide].imagem!}
+                    alt={`${slides[slide].rotulo} — ${slides[slide].legenda}`}
+                    fill
+                    sizes="(max-width: 860px) 90vw, 40vw"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              ) : slides ? (
                 <div className="media-placeholder">
                   <span>
                     {slides[slide].rotulo} — {slides[slide].legenda}
@@ -191,6 +202,11 @@ export function Casos() {
                 </>
               )}
             </div>
+            {slides && slides[slide].imagem ? (
+              <span className="caso-carrossel-cap">
+                {slides[slide].rotulo} — {slides[slide].legenda}
+              </span>
+            ) : null}
             {slides ? (
               <div className="caso-carrossel-nav" role="tablist" aria-label="Imagens do caso">
                 {slides.map((s, i) => (

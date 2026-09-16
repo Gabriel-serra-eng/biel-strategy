@@ -96,6 +96,8 @@ export interface CasoStat {
 export interface CasoCarrosselSlide {
   rotulo: string;
   legenda: string;
+  /** Caminho da imagem real (opcional) — sem isso, o slide usa o placeholder padrão. */
+  imagem?: string;
 }
 
 export interface CasoExpansaoItem {
@@ -157,7 +159,7 @@ export const CASOS: Caso[] = [
     statsNota: "Dados registrados no Gerenciador de Anúncios.",
     carrossel: [
       { rotulo: "Gerenciador de anúncios", legenda: "Print real da campanha" },
-      { rotulo: "Salão / Cássia", legenda: "Foto real do salão ou da Cássia" },
+      { rotulo: "Salão / Cássia", legenda: "Foto real do salão e da Cássia", imagem: "/casos/cassia-salao.webp" },
     ],
     metaTitulo: "+100 leads em 60 dias",
     metaTexto:
