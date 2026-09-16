@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Jornada } from "@/components/sections/Jornada";
 import { Marketing } from "@/components/sections/Marketing";
 import { Casos } from "@/components/sections/Casos";
+import { LandingCase } from "@/components/sections/LandingCase";
 import { Tecnologia } from "@/components/sections/Tecnologia";
 import { IA } from "@/components/sections/IA";
 import { StackStrip } from "@/components/sections/StackStrip";
@@ -23,6 +24,7 @@ export default function Home() {
         <Jornada />
         <Marketing />
         <Casos />
+        <LandingCase />
         <Tecnologia />
         <IA />
         <StackStrip />

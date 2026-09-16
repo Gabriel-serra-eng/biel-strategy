@@ -50,11 +50,13 @@ function CasoStatValue({ value }: { value: string }) {
   );
 }
 
+const VISIBLE_CASOS = CASOS.filter((c) => !c.oculto);
+
 export function Casos() {
   const [ab, setAb] = useState(0);
   const [slide, setSlide] = useState(0);
   const [outgoing, setOutgoing] = useState<number | null>(null);
-  const c = CASOS[ab];
+  const c = VISIBLE_CASOS[ab];
   const panelRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const incomingRef = useRef<HTMLDivElement | null>(null);
@@ -133,7 +135,7 @@ export function Casos() {
       </div>
 
       <Reveal className="casos-nav" role="tablist">
-        {CASOS.map((x, i) => (
+        {VISIBLE_CASOS.map((x, i) => (
           <button
             key={x.t}
             role="tab"

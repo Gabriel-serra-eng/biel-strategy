@@ -75,6 +75,17 @@ export const COMPETENCIAS_IA: string[] = [
   "Ollama (local)",
 ];
 
+export const LANDING_FUNIL_STEPS: string[] = ["Anúncio", "Landing page", "Ação", "Lead"];
+
+export const LANDING_COMPETENCIAS: string[] = [
+  "Copy",
+  "UX/UI",
+  "Performance",
+  "SEO",
+  "Rastreamento",
+  "Integrações",
+];
+
 export interface NivelStack {
   t: string;
   d: string;
@@ -146,6 +157,8 @@ export interface Caso {
   expansao?: CasoExpansaoItem[];
   /** Fechamento/CTA específico do case, como continuação natural. */
   cta?: CasoCta;
+  /** Oculta o case da navegação/renderização sem remover os dados (reversível). */
+  oculto?: boolean;
 }
 
 export const CASOS: Caso[] = [
@@ -212,6 +225,7 @@ export const CASOS: Caso[] = [
     p: "Restaurantes anunciam sem material forte ou contratam conteúdo sem distribuição.",
     a: "Landing page em formato VSL com qualificação em oito passos por cards, revelando o investimento só ao fim do filtro.",
     r: "Autor da arquitetura de aquisição, da copy e da lógica do funil.",
+    oculto: true,
   },
   {
     eixo: "Technology / AI",
@@ -220,6 +234,7 @@ export const CASOS: Caso[] = [
     p: "Listas frias genéricas geram abordagem sem contexto e rejeição acima de 95%.",
     a: "Varredura de sinais públicos e score transparente de Fit, Necessidade, Intenção e Timing antes do contato humano.",
     r: "Produto próprio. Fórmulas de pontuação e chaves permanecem internas.",
+    oculto: true,
   },
 ];
 
@@ -260,6 +275,7 @@ export const CHAPTER_IDS: string[] = [
   "jornada",
   "marketing",
   "casos",
+  "landing",
   "tecnologia",
   "ia",
   "formacao",
