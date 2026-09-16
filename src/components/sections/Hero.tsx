@@ -71,14 +71,17 @@ export function Hero() {
             </a>
           </div>
           <p className="hero-note">
-            Gabriel <Pending>VALIDAR sobrenome</Pending> · WhatsApp comercial <Pending>VALIDAR</Pending>
+            Gabriel Serra · WhatsApp comercial{" "}
+            <a href="https://wa.me/5511920115354" target="_blank" rel="noopener noreferrer">
+              +55 11 92011-5354
+            </a>
           </p>
         </div>
         <div className="hero-portrait">
           <div className="media">
             <Image
               src="/images/biel-retrato.webp"
-              alt="Retrato profissional de Gabriel, fundador da Biel Strategy"
+              alt="Retrato profissional de Gabriel Serra, fundador da Biel Strategy"
               fill
               sizes="(max-width: 860px) 90vw, 40vw"
               priority

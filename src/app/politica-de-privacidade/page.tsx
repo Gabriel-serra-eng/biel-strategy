@@ -40,7 +40,7 @@ export default function PoliticaDePrivacidadePage() {
           <h2>1. Quem trata os seus dados</h2>
           <p>
             Os dados enviados pelo formulário de contato deste site são tratados por{" "}
-            <strong>Gabriel</strong>, atuando sob o nome comercial <strong>Biel Strategy</strong>,
+            <strong>Gabriel Serra</strong>, atuando sob o nome comercial <strong>Biel Strategy</strong>,
             pessoa física sem CNPJ constituído até o momento. Para qualquer assunto relacionado a
             este tratamento de dados — dúvidas, correções, exclusão ou qualquer outra solicitação
             — o canal de contato é{" "}

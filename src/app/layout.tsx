@@ -45,7 +45,7 @@ const jsonLd = {
   areaServed: "BR",
   founder: {
     "@type": "Person",
-    name: "Gabriel",
+    name: "Gabriel Serra",
     jobTitle: "Estrategista de Aquisição & Soluções Digitais",
   },
 };
