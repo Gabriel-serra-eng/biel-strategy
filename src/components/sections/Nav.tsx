@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { BrandMark } from "@/components/ui/BrandMark";
+import Image from "next/image";
 import { scrollToSection } from "@/components/ui/Button";
 import { NAV_LINKS } from "@/data/site";
 import { useMagnetic } from "@/hooks/useMagnetic";
@@ -13,7 +13,14 @@ export function Nav() {
   return (
     <nav className="nav">
       <a href="#hero" className="nav-mark" aria-label="Biel Strategy — início">
-        <BrandMark iconSize={26} wordmarkSize={13} />
+        <Image
+          src="/brand/eclipse-symbol-512.webp"
+          alt="Biel Strategy"
+          width={34}
+          height={34}
+          className="brand-mark-icon"
+          priority
+        />
       </a>
       <div className="nav-links">
         {NAV_LINKS.map((l) => (
