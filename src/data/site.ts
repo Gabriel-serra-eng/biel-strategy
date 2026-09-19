@@ -284,5 +284,5 @@ export const SITE_URL = "https://bielstrategy.com";
 export const SITE_META = {
   title: "Marketing de Aquisição e Tráfego Pago | Biel Strategy",
   description:
-    "Estratégia de marketing digital para atrair clientes: Google Ads, Meta Ads, landing pages e rastreamento, com foco em geração de leads e conversão.",
+    "Estratégia de marketing digital para empresas no Brasil e para brasileiros no exterior: Google Ads, Meta Ads, landing pages e rastreamento para gerar leads e converter.",
 };

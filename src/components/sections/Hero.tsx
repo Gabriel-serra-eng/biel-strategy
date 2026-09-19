@@ -92,6 +92,7 @@ export function Hero() {
         <span className="axis axis-1">Marketing</span>
         <span className="axis axis-2">Tecnologia</span>
         <span className="axis axis-3">IA</span>
+        <span className="axis axis-4">Brasil · Exterior · Aquisição</span>
       </div>
     </section>
   );
