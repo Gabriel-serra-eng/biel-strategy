@@ -150,10 +150,10 @@ export function Casos() {
   }, [slide, slides, outgoing]);
 
   return (
-    <Section id="casos" n="03" label="Selected work" className="sec-hero">
+    <Section id="casos" n="03" label="Cases" className="sec-hero">
       <div className="two-col traj-intro">
         <div>
-          <SectionTitle accent="e projetos construídos.">Casos de marketing</SectionTitle>
+          <SectionTitle accent="e geração de leads.">Cases reais de marketing</SectionTitle>
         </div>
       </div>
 
@@ -201,7 +201,7 @@ export function Casos() {
               ) : null}
             </div>
             <div className="caso-block">
-              <span className="caso-l">Participação</span>
+              <span className="caso-l">Minha atuação</span>
               <p>{c.r}</p>
             </div>
             {c.stats ? (

@@ -33,18 +33,19 @@ export function Jornada() {
   }, [ativa]);
 
   return (
-    <Section id="jornada" n="01" label="A jornada" className="sec-jornada">
+    <Section id="jornada" n="01" label="Método" className="sec-jornada">
       <div className="two-col traj-intro">
         <div>
-          <SectionTitle accent="que já sabia o que buscar." size="lg">
-            Um estrategista
+          <SectionTitle accent="entender o negócio." size="lg">
+            Antes de anunciar,
           </SectionTitle>
         </div>
         <Reveal d={80} className="col-body">
           <p className="lede">
-            O mesmo profissional estrutura a mídia, escreve a página e automatiza a inteligência
-            comercial — porque campanha, código e IA resolvem o mesmo problema: intenção que
-            precisa virar contato.
+            Ajudo empresas a atrair clientes com estratégia de marketing digital e tráfego pago,
+            organizando a aquisição do primeiro clique até a conversa comercial. Cada negócio tem um contexto, um público e um momento diferentes,
+            por isso não existe estratégia pronta que sirva para todos. Primeiro entendo o seu
+            cenário. Depois defino o caminho.
           </p>
         </Reveal>
       </div>

@@ -21,58 +21,58 @@ export interface Fase {
 export const FASES: Fase[] = [
   {
     n: "01",
-    t: "Base técnica",
-    w: "ORIGEM",
-    d: "Redes, protocolos e primeiros passos em Python — a lógica que depois leria tráfego, UTMs e tags de campanha.",
+    t: "Entender o negócio",
+    w: "ENTENDER",
+    d: "Oferta, público, momento e contexto. O ponto de partida é como o seu negócio funciona hoje e onde estão as oportunidades.",
   },
   {
     n: "02",
-    t: "Tráfego de intenção",
-    w: "MARKETING",
-    d: "Gestão de Google Ads para negócios locais. Diagnóstico: campanha boa falha quando a página não acompanha.",
+    t: "Definir o caminho",
+    w: "DEFINIR",
+    d: "Canais, mensagem e prioridades escolhidos para o seu caso, e não um pacote pronto.",
   },
   {
     n: "03",
-    t: "O gargalo",
-    w: "VIRADA",
-    d: "Templates lentos e formulários genéricos custavam clique pago. A resposta exigia engenharia própria.",
+    t: "Construir a estrutura",
+    w: "CONSTRUIR",
+    d: "Landing pages, formulários e rastreamento pensados para o percurso completo, do anúncio até o contato.",
   },
   {
     n: "04",
-    t: "Engenharia de conversão",
-    w: "TECNOLOGIA",
-    d: "React, Next.js e formulários multi-step sob medida — sem o atrito que derruba quem chega pelo anúncio.",
+    t: "Colocar no ar",
+    w: "EXECUTAR",
+    d: "Campanhas de Google Ads e Meta Ads com segmentação, criativos e testes, acompanhadas de perto desde o primeiro dia.",
   },
   {
     n: "05",
-    t: "Amplificação com IA",
-    w: "IA",
-    d: "LLMs entram para pontuar leads e acelerar prototipagem: Lead Radar e VYRO nascem daqui.",
+    t: "Medir e ajustar",
+    w: "EVOLUIR",
+    d: "Rastreamento e mensuração mostram o que funciona. O investimento passa a ir para o que apresenta potencial.",
   },
 ];
 
 export const COMPETENCIAS_MARKETING: string[] = [
-  "Google Ads · Search",
-  "Meta Ads",
-  "Funis de conversão",
-  "WhatsApp como canal",
-  "Copywriting & VSL",
-  "GA4 / GTM",
+  "Estratégia de marketing digital",
+  "Tráfego pago: Google Ads",
+  "Tráfego pago: Meta Ads",
+  "Geração de leads e WhatsApp",
+  "Landing pages e conversão",
+  "Rastreamento e mensuração",
 ];
 
 export const FUNIL_STEPS: string[] = ["Busca", "Anúncio", "Clique", "Contato", "Oportunidade"];
 
 export const COMPETENCIAS_TECNOLOGIA: string[] = [
-  "React & Next.js",
-  "TypeScript",
-  "Formulários multi-step",
-  "APIs & webhooks",
+  "Landing pages rápidas e sob medida",
+  "Formulários que qualificam o contato",
+  "Integrações com suas ferramentas",
+  "Rastreamento de origem e conversão",
 ];
 
 export const COMPETENCIAS_IA: string[] = [
-  "Claude / Anthropic SDK",
-  "Google Gemini API",
-  "Ollama (local)",
+  "Análise de informações",
+  "Apoio à criação",
+  "Automação de rotinas",
 ];
 
 export const LANDING_FUNIL_STEPS: string[] = ["Anúncio", "Landing page", "Ação", "Lead"];
@@ -92,11 +92,11 @@ export interface NivelStack {
 }
 
 export const NIVEIS: NivelStack[] = [
-  { t: "Marketing", d: "Google Ads · Meta Ads · GA4 · GTM" },
-  { t: "Build", d: "React · TypeScript · APIs · Git" },
-  { t: "AI", d: "Claude · Gemini · Ollama" },
-  { t: "Automação", d: "Apps Script · Sheets · n8n" },
-  { t: "Fundação", d: "Redes · Linux · Python" },
+  { t: "Aquisição", d: "Atrair as pessoas certas" },
+  { t: "Conversão", d: "Landing pages e formulários sob medida" },
+  { t: "Dados", d: "Rastreamento e mensuração para decidir" },
+  { t: "Automação", d: "Menos trabalho manual" },
+  { t: "IA", d: "Apoio à análise e à criação" },
 ];
 
 export interface CasoStat {
@@ -165,7 +165,7 @@ export interface Caso {
 
 export const CASOS: Caso[] = [
   {
-    eixo: "Marketing / Aquisição",
+    eixo: "Marketing / Tráfego pago",
     t: "Cássia · Beleza & Cachos",
     sub: "Estética especializada · Zona Norte, São Paulo",
     p: "Transformar presença digital em conversas reais com potenciais clientes. A oportunidade existia — o desafio era criar um caminho entre o anúncio e o contato, colocando a empresa diante das pessoas certas e levando o interesse direto para o WhatsApp.",
@@ -194,9 +194,6 @@ export const CASOS: Caso[] = [
         },
       ],
     },
-    metaTitulo: "+100 leads em 60 dias",
-    metaTexto:
-      "Uma meta de aquisição construída a partir de mídia paga, otimização contínua e uma estrutura preparada para transformar atenção em oportunidades.",
     expansao: [
       { canal: "Meta Ads", descricao: "Geração de demanda e conversas." },
       { canal: "Google Ads", descricao: "Captura de pessoas que já estão procurando por uma solução." },
@@ -213,8 +210,7 @@ export const CASOS: Caso[] = [
       texto3:
         "É entender o seu negócio, o seu público, suas oportunidades e aquilo que pode estar sendo desperdiçado — e transformar isso em uma operação de aquisição capaz de evoluir com os dados.",
       reforco1: "Você já tem potencial.",
-      reforco2: "Eu vou usar o que você ainda não sabe usar para chegar mais longe.",
-      tag: "Marketing · Tecnologia · IA · Aquisição",
+      tag: "Conversa estratégica",
       botao: "→ Quero descobrir meu potencial",
       nota:
         "Uma conversa estratégica para entender onde sua empresa está e quais caminhos podem fazer sentido para o próximo estágio do seu negócio.",
@@ -230,18 +226,9 @@ export const CASOS: Caso[] = [
     oculto: true,
   },
   {
-    eixo: "Technology / AI",
-    t: "Lead Radar",
-    sub: "Inteligência comercial B2B",
-    p: "Listas frias genéricas geram abordagem sem contexto e rejeição acima de 95%.",
-    a: "Varredura de sinais públicos e score transparente de Fit, Necessidade, Intenção e Timing antes do contato humano.",
-    r: "Produto próprio. Fórmulas de pontuação e chaves permanecem internas.",
-    oculto: true,
-  },
-  {
-    eixo: "Landing Page / Aquisição",
+    eixo: "Landing Page / Conversão",
     t: "O site não é o destino. É parte da estratégia.",
-    sub: "Copy · UX/UI · Performance · SEO · Rastreamento · Integrações",
+    sub: "Landing pages para tráfego pago: estratégia, texto e desenvolvimento em uma única entrega.",
     p: "Um anúncio pode gerar o clique. Mas é a experiência depois dele que pode transformar atenção em oportunidade.",
     a: "Uno desenvolvimento, marketing e estratégia de conversão para criar páginas pensadas desde a origem para receber tráfego pago. A página considera objetivo, público, oferta e comportamento, criando uma experiência orientada à conversão.",
     funil: ["Anúncio", "Landing page", "Ação", "Lead"],
@@ -269,32 +256,15 @@ export const CERTS: string[] = [
   "Google Ads Search / GA4",
   "IA & Data Science (Coursera/IBM)",
   "Automação & Suporte de TI",
-  "Networking (Cisco)",
-  "Azure Fundamentals",
-];
-
-export interface VisaoItem {
-  t: string;
-  d: string;
-}
-
-export const VISAO_ITEMS: VisaoItem[] = [
-  { t: "VYRO Site Factory", d: "Motor de prototipagem visual acelerada — hoje em ampliação." },
-  { t: "Lead Radar", d: "Consolidação dos scores explicáveis de prontidão comercial." },
-  { t: "Automação de operação", d: "n8n e Apps Script unindo captura, qualificação e relatório." },
-  {
-    t: "Convergência",
-    d: "Marketing lidera. Tecnologia constrói. IA acelera. Em um só ponto de responsabilidade.",
-  },
 ];
 
 export const NAV_LINKS: { href: string; label: string }[] = [
-  { href: "#jornada", label: "Jornada" },
+  { href: "#jornada", label: "Método" },
   { href: "#marketing", label: "Marketing" },
-  { href: "#casos", label: "Work" },
+  { href: "#casos", label: "Cases" },
   { href: "#tecnologia", label: "Tecnologia" },
   { href: "#ia", label: "IA" },
-  { href: "#formacao", label: "Credentials" },
+  { href: "#formacao", label: "Formação" },
 ];
 
 export const CHAPTER_IDS: string[] = [
@@ -305,7 +275,6 @@ export const CHAPTER_IDS: string[] = [
   "tecnologia",
   "ia",
   "formacao",
-  "visao",
   "contato",
 ];
 
@@ -313,7 +282,7 @@ export const CHAPTER_IDS: string[] = [
 export const SITE_URL = "https://bielstrategy.com";
 
 export const SITE_META = {
-  title: "Biel Strategy | Marketing de Aquisição, Tecnologia & IA",
+  title: "Marketing de Aquisição e Tráfego Pago | Biel Strategy",
   description:
-    "Estrategista de aquisição e soluções digitais: mídia de intenção, engenharia de conversão e inteligência artificial em uma operação única.",
+    "Estratégia de marketing digital para atrair clientes: Google Ads, Meta Ads, landing pages e rastreamento, com foco em geração de leads e conversão.",
 };

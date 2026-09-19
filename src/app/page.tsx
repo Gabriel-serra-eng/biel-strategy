@@ -9,7 +9,6 @@ import { Tecnologia } from "@/components/sections/Tecnologia";
 import { IA } from "@/components/sections/IA";
 import { StackStrip } from "@/components/sections/StackStrip";
 import { Formacao } from "@/components/sections/Formacao";
-import { Visao } from "@/components/sections/Visao";
 import { Fechamento } from "@/components/sections/Fechamento";
 
 export default function Home() {
@@ -27,7 +26,6 @@ export default function Home() {
         <IA />
         <StackStrip />
         <Formacao />
-        <Visao />
         <Fechamento />
       </main>
     </>

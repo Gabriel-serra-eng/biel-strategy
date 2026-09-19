@@ -3,7 +3,7 @@ import { COMPETENCIAS_MARKETING, FUNIL_STEPS } from "@/data/site";
 
 export function Marketing() {
   return (
-    <Section id="marketing" n="02" label="Marketing · eixo protagonista" className="sec-mkt">
+    <Section id="marketing" n="02" label="Estratégia de aquisição" className="sec-mkt">
       <div className="mkt-open">
         <Reveal>
           <h2 className="mega">
@@ -18,7 +18,7 @@ export function Marketing() {
 
       <div className="funil">
         <Reveal className="funil-head">
-          <Kicker tone="accent">O funil</Kicker>
+          <Kicker tone="accent">O funil de aquisição</Kicker>
           <h3>
             Aparecer. Atrair. <span className="ac">Converter.</span>
           </h3>
@@ -45,7 +45,7 @@ export function Marketing() {
       </Reveal>
 
       <Reveal d={160} className="chips">
-        <Kicker>Competências</Kicker>
+        <Kicker>Onde atuo</Kicker>
         <div className="chips-row">
           {COMPETENCIAS_MARKETING.map((t) => (
             <span key={t} className="chip">

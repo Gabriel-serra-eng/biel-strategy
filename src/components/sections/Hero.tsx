@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { Button, scrollToSection } from "@/components/ui/Button";
-import { Pending } from "@/components/ui/Section";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 import { HeroBackground } from "./HeroBackground";
 
@@ -46,13 +45,13 @@ export function Hero() {
         <div className="hero-copy">
           <div className="hero-kicker">
             <Wordmark size={13} />
-            <span className="hero-role">Estrategista de Aquisição &amp; Soluções Digitais</span>
+            <span className="hero-role">Estrategista de marketing e aquisição de clientes</span>
           </div>
           <h1 className="hero-title">
             <span className="hl hl-1">
               Marketing
               <br />
-              que pensa<span className="ac">.</span>
+              sob medida<span className="ac">.</span>
             </span>
             <span className="hl hl-2">
               Tecnologia que constrói<span className="ac">.</span>
@@ -63,10 +62,10 @@ export function Hero() {
           </h1>
           <div className="hero-cta">
             <Button variant="primary" size="lg" onClick={() => scrollToSection("contato")}>
-              Iniciar conversa estratégica
+              Agendar conversa estratégica
             </Button>
             <a className="link-quiet" href="#jornada">
-              Ver a trajetória ↓
+              Ver como eu trabalho ↓
             </a>
           </div>
           <p className="hero-note">
@@ -87,9 +86,6 @@ export function Hero() {
               style={{ objectFit: "cover" }}
             />
           </div>
-          <span className="portrait-cap">
-            Retrato oficial <Pending>A VALIDAR</Pending>
-          </span>
         </div>
       </div>
       <div className="hero-foot">

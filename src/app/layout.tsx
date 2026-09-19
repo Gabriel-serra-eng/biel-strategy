@@ -43,7 +43,14 @@ export const metadata: Metadata = {
     siteName: "Biel Strategy",
     type: "website",
     locale: "pt_BR",
-    images: [{ url: "/images/biel-retrato.webp", width: 612, height: 912 }],
+    images: [
+      {
+        url: "/images/biel-retrato.webp",
+        width: 612,
+        height: 912,
+        alt: "Gabriel Serra, estrategista de marketing e aquisição de clientes — Biel Strategy",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -55,6 +62,34 @@ export const metadata: Metadata = {
 
 // Dados reais e já confirmados do projeto — nenhum campo inventado (sem endereço, CNPJ,
 // redes sociais ou avaliações, que o negócio ainda não tem validados).
+// Serviços descritos como aparecem na página (seções Marketing, Cases e Execução).
+const SERVICES = [
+  {
+    slug: "estrategia-de-marketing-digital",
+    name: "Estratégia de marketing digital e aquisição de clientes",
+    description:
+      "Diagnóstico do negócio, definição de canais e mensagem, e estratégia de aquisição de clientes construída a partir do contexto de cada empresa.",
+  },
+  {
+    slug: "trafego-pago",
+    name: "Tráfego pago: Google Ads e Meta Ads",
+    description:
+      "Construção e gestão de campanhas de Google Ads e Meta Ads orientadas à geração de leads e conversas, com otimização contínua.",
+  },
+  {
+    slug: "landing-pages",
+    name: "Landing pages para conversão",
+    description:
+      "Landing pages e formulários sob medida, pensados desde a origem para receber tráfego pago e transformar visitas em leads.",
+  },
+  {
+    slug: "rastreamento-e-mensuracao",
+    name: "Rastreamento e mensuração",
+    description:
+      "Rastreamento de origem e conversão para orientar decisões de investimento com base em dados.",
+  },
+];
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -78,9 +113,29 @@ const jsonLd = {
       founder: {
         "@type": "Person",
         name: "Gabriel Serra",
-        jobTitle: "Estrategista de Aquisição & Soluções Digitais",
+        jobTitle: "Estrategista de marketing e aquisição de clientes",
       },
+      knowsAbout: [
+        "Marketing digital",
+        "Estratégia de marketing",
+        "Aquisição de clientes",
+        "Tráfego pago",
+        "Google Ads",
+        "Meta Ads",
+        "Geração de leads",
+        "Landing pages",
+        "Rastreamento e mensuração",
+      ],
     },
+    ...SERVICES.map((s) => ({
+      "@type": "Service",
+      "@id": `${SITE_URL}/#service-${s.slug}`,
+      name: s.name,
+      description: s.description,
+      provider: { "@id": `${SITE_URL}/#organization` },
+      areaServed: "BR",
+      inLanguage: "pt-BR",
+    })),
   ],
 };
 

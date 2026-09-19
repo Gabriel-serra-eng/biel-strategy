@@ -9,7 +9,7 @@ export function Fechamento() {
   return (
     <section id="contato" data-screen-label="Fechamento" className="fim">
       <Reveal className="fim-inner">
-        <p className="fim-kicker">A trajetória continua</p>
+        <p className="fim-kicker">Próximo passo</p>
         <h2 className="fim-title">
           Quando existe intenção,
           <br />

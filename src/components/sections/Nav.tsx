@@ -23,7 +23,7 @@ export function Nav() {
         ))}
       </div>
       <button ref={ctaRef} type="button" className="nav-cta" onClick={() => scrollToSection("contato")}>
-        Conversa estratégica
+        Agendar conversa
       </button>
     </nav>
   );

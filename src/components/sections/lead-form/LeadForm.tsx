@@ -200,7 +200,7 @@ export function LeadForm() {
     return (
       <div className="fim-cta">
         <Button variant="outline" size="lg" onClick={() => setStarted(true)}>
-          Vamos começar?
+          Agendar conversa estratégica
         </Button>
       </div>
     );
@@ -212,8 +212,8 @@ export function LeadForm() {
         <p className="lf-step-kicker">Recebido</p>
         <h3 className="lf-step-title">Sua mensagem chegou.</h3>
         <p className="lf-status-text">
-          Vou olhar com calma o que você contou sobre o seu negócio e retorno pelo canal que você
-          preferiu.
+          Vou analisar com calma o que você contou sobre o seu negócio e retorno pelo canal que você
+          escolheu para combinarmos a conversa estratégica.
         </p>
       </div>
     );

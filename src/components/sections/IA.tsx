@@ -3,16 +3,15 @@ import { COMPETENCIAS_IA } from "@/data/site";
 
 export function IA() {
   return (
-    <Section id="ia" n="05" label="IA · camada complementar" className="sec-ia">
+    <Section id="ia" n="05" label="IA como apoio" className="sec-ia">
       <div className="two-col">
         <div>
           <SectionTitle accent="amplia o que já existe.">A IA</SectionTitle>
         </div>
         <div className="col-body">
           <Reveal d={80} as="p" className="lede">
-            Não é a profissão principal. LLMs pontuam a prontidão de leads antes do contato humano
-            e aceleram a prototipagem de interface — uma camada sobre Marketing e Tecnologia, não
-            acima deles.
+            Uso IA como apoio ao marketing, onde ela realmente ajuda: analisar informações, acelerar a criação e
+            automatizar rotinas. É uma camada sobre a estratégia, não um substituto para ela.
           </Reveal>
           <Reveal d={160} className="chips">
             <div className="chips-row">
