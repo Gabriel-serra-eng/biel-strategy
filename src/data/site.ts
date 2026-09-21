@@ -281,6 +281,14 @@ export const CHAPTER_IDS: string[] = [
 /** Domínio de produção validado — usado como metadataBase, canonical, robots.txt e sitemap.xml. */
 export const SITE_URL = "https://bielstrategy.com";
 
+/** Imagem de compartilhamento (Open Graph / Twitter) — 1200×630, formato padrão de link preview. */
+export const OG_IMAGE = {
+  url: "/images/og-biel-strategy.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Biel Strategy — Marketing sob medida. Aquisição de clientes, tráfego pago, landing pages e geração de leads.",
+};
+
 export const SITE_META = {
   title: "Marketing de Aquisição e Tráfego Pago | Biel Strategy",
   description:

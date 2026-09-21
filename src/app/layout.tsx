@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
-import { SITE_META, SITE_URL } from "@/data/site";
+import { OG_IMAGE, SITE_META, SITE_URL } from "@/data/site";
 import { WhatsAppButton } from "@/components/sections/WhatsAppButton";
 import "./globals.css";
 
@@ -43,20 +43,13 @@ export const metadata: Metadata = {
     siteName: "Biel Strategy",
     type: "website",
     locale: "pt_BR",
-    images: [
-      {
-        url: "/images/biel-retrato.webp",
-        width: 612,
-        height: 912,
-        alt: "Gabriel Serra, estrategista de marketing e aquisição de clientes — Biel Strategy",
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_META.title,
     description: SITE_META.description,
-    images: ["/images/biel-retrato.webp"],
+    images: [OG_IMAGE.url],
   },
 };
 

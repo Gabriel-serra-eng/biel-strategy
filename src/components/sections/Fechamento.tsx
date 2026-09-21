@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Reveal, BrandMark } from "@/components/ui";
 import { LeadForm } from "@/components/sections/lead-form/LeadForm";
 import { SecurityStatus } from "@/components/sections/SecurityStatus";
@@ -40,6 +41,9 @@ export function Fechamento() {
         <span>Marketing de aquisição · Tecnologia · IA</span>
         <SecurityStatus />
         <SafeBrowsingStatus />
+        <Link className="fim-legal" href="/politica-de-privacidade">
+          Política de Privacidade
+        </Link>
       </div>
     </section>
   );

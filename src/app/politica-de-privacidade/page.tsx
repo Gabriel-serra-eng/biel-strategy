@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { CONSENT_VERSION } from "@/data/leadForm";
+import { OG_IMAGE } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade | Biel Strategy",
@@ -9,6 +10,24 @@ export const metadata: Metadata = {
     "Como o Biel Strategy coleta, usa e armazena os dados enviados pelo formulário de contato.",
   alternates: {
     canonical: "/politica-de-privacidade",
+  },
+  // O openGraph da página substitui por completo o do layout, então repete os campos do site.
+  openGraph: {
+    title: "Política de Privacidade | Biel Strategy",
+    description:
+      "Como o Biel Strategy coleta, usa e armazena os dados enviados pelo formulário de contato.",
+    url: "/politica-de-privacidade",
+    siteName: "Biel Strategy",
+    type: "website",
+    locale: "pt_BR",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Privacidade | Biel Strategy",
+    description:
+      "Como o Biel Strategy coleta, usa e armazena os dados enviados pelo formulário de contato.",
+    images: [OG_IMAGE.url],
   },
 };
 
