@@ -82,7 +82,9 @@ export function Hero() {
               alt="Retrato profissional de Gabriel Serra, fundador da Biel Strategy"
               fill
               sizes="(max-width: 860px) 90vw, 40vw"
-              priority
+              preload
+              loading="eager"
+              fetchPriority="high"
               style={{ objectFit: "cover" }}
             />
           </div>
