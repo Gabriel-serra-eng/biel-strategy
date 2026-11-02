@@ -1,6 +1,6 @@
 -- Biel_Strategy — endurece RLS e funções SECURITY DEFINER (avisos do Supabase Security Advisor).
 --
--- Aplicada no projeto Supabase "Gabriel-serra-eng's Project" (xhntobdbpzsvfblmihnf) em
+-- Aplicada no projeto Supabase do Biel Strategy em
 -- setembro/2026, via MCP do Supabase. Este arquivo é a cópia versionada dessa migration.
 
 -- 1) rls_auto_enable() é a função do event trigger `ensure_rls` (liga RLS em toda tabela nova do

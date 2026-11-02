@@ -1,7 +1,7 @@
 -- Biel_Strategy — tabela de leads (formulário nativo: captura + pré-diagnóstico + atribuição)
 -- Ver LEAD_SYSTEM_RESEARCH.md (seções 01-A, 05, 06) e LEAD_FORM_IMPLEMENTATION.md para o racional.
 --
--- Aplicada no projeto Supabase "Gabriel-serra-eng's Project" (xhntobdbpzsvfblmihnf) em
+-- Aplicada no projeto Supabase do Biel Strategy em
 -- setembro/2026, via MCP do Supabase. Este arquivo é a cópia versionada dessa migration —
 -- mantenha-o em sincronia com o banco caso alguém precise recriar o ambiente do zero.
 
