@@ -273,7 +273,7 @@ implementação: nada de CRM/dashboard embutido no site).
 ## 13. Banco de dados
 
 **Supabase** (Postgres gerenciado). Projeto: `Gabriel-serra-eng's Project`
-(ref `xhntobdbpzsvfblmihnf`, região `us-east-1`) — reaproveitado de um projeto já existente e
+(ref omitido, região `us-east-1`) — reaproveitado de um projeto já existente e
 vazio, não criado especificamente para isto.
 
 **Tabela única: `public.leads`.** Migration versionada em

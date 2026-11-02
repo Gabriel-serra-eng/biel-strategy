@@ -51,7 +51,7 @@ Visão permanecem exatamente como estavam.
 ## 4. Schema Supabase
 
 Projeto reaproveitado (já existia, vazio): `Gabriel-serra-eng's Project`
-(`xhntobdbpzsvfblmihnf`, região `us-east-1`).
+(ref omitido, região `us-east-1`).
 
 Tabela `public.leads` — colunas conforme a seção 05 de `LEAD_SYSTEM_RESEARCH.md` (contato,
 etapas 01-08 do pré-diagnóstico, ciclo `status`, consentimento, `lead_score`/`lead_temperature`,

@@ -1,53 +1,172 @@
+<div align="center">
+
 # Biel Strategy
 
-Site pessoal de **Biel Strategy** — Estrategista de Aquisição & Soluções Digitais. Implementação em Next.js do design aprovado no Claude Design, com Marketing como eixo protagonista, Tecnologia como segundo eixo e Inteligência Artificial como camada complementar.
+**Site de aquisição e posicionamento profissional de Gabriel Serra — Estrategista de Aquisição & Soluções Digitais.**
 
-## Sobre o projeto
+Next.js 16 · React 19 · TypeScript · Supabase · GSAP
 
-Este repositório carrega três camadas de decisão, nessa ordem:
+[![Site no ar](https://img.shields.io/badge/site-bielstrategy.com-0b0b0f?style=flat-square)](https://bielstrategy.com)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-149eca?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20RLS-3ecf8e?style=flat-square&logo=supabase&logoColor=white)
+![Zod](https://img.shields.io/badge/validação-Zod%204-3068b7?style=flat-square)
 
-1. **[`RESEARCH.md`](./RESEARCH.md)** — fonte de verdade do conteúdo: trajetória, competências de marketing, projetos/cases, stack e credenciais. Nenhum dado do site é inventado além do que está auditado aqui.
-2. **[`IMPLEMENTATION.md`](./IMPLEMENTATION.md)** — contrato técnico: arquitetura, separação entre conteúdo/apresentação/experiência, critérios de performance, acessibilidade e SEO.
-3. **`design_import/`** — bundle de handoff exportado do [Claude Design](https://claude.ai/design) com o protótipo visual aprovado (HTML/CSS/JS + design system em tokens). Mantido como referência histórica; não faz parte do app em produção.
+</div>
 
-A implementação real do site vive em `src/`, seguindo fielmente a composição, tipografia e hierarquia do design aprovado — sem redesenhar nada.
+---
+
+## Visão geral
+
+Site em produção em **[bielstrategy.com](https://bielstrategy.com)** que combina duas funções: apresentar a trajetória, os cases e a stack do profissional (Marketing como eixo principal, Tecnologia como segundo eixo e IA como camada complementar) e **capturar leads qualificados** por meio de um formulário nativo de pré-diagnóstico, gravado direto em banco.
+
+O projeto nasceu de um protótipo visual aprovado no Claude Design e foi implementado fielmente em Next.js, com o conteúdo derivado de uma pesquisa documentada (`RESEARCH.md`) — nenhum dado do site foi inventado além do que está auditado ali.
+
+## Problema que resolve
+
+Sites pessoais costumam ser só um cartão de visita: não medem de onde vem o visitante nem qualificam o contato. Aqui o site também funciona como **ponto de entrada comercial**: o formulário em etapas reduz atrito, registra a origem do tráfego (UTM e click IDs) e guarda o consentimento LGPD de cada lead.
+
+## Principais funcionalidades
+
+| Área | O que existe no código |
+|---|---|
+| **Formulário de pré-diagnóstico** | 8 etapas (negócio, desafio, situação atual, histórico, objetivo, momento, investimento, contato) — `src/components/sections/lead-form/` |
+| **Persistência de leads** | Server Action grava no Supabase (Postgres) — `src/app/actions/submitLead.ts` |
+| **Validação server-side** | Schema Zod autoritativo; campos de qualificação opcionais (baixa fricção), contato e consentimento obrigatórios — `src/lib/leads/schema.ts` |
+| **Anti-spam** | Campo *honeypot* + rate limit por IP em memória (5 req/min) — `src/lib/leads/rateLimit.ts` |
+| **Atribuição de campanha** | Captura `utm_*`, `gclid`, `gbraid`, `wbraid`, `fbclid`, página de entrada e referrer — `src/hooks/useLeadTracking.ts` |
+| **LGPD** | Consentimento versionado com timestamp por lead; página de política de privacidade |
+| **Segurança de dados** | RLS no Supabase: a chave `anon` só tem `INSERT` (sem `SELECT`), com *policy* restritiva — `supabase/migrations/` |
+| **Selo de segurança do site** | Consulta real à API Google Safe Browsing v4 (opcional, com cache de 15 min) — `src/app/actions/checkSafeBrowsing.ts` |
+| **Segurança HTTP** | HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` — `next.config.mjs` |
+| **SEO técnico** | Metadata, Open Graph, `sitemap.ts`, `robots.ts`, dados estruturados (JSON-LD) |
+| **Experiência visual** | Animações GSAP + ScrollTrigger com fallback completo para `prefers-reduced-motion` |
 
 ## Stack
 
-- **Next.js 16** (App Router) + **React 19** + **TypeScript**
-- **CSS vanilla orientado a tokens** (cores, tipografia, espaçamento, motion) — fiel ao design system do handoff, sem Tailwind
-- **GSAP + ScrollTrigger** para a camada de experiência: reveals de seção, rail de progresso da Jornada, crossfade de casos, CTA magnético e o glow cinematográfico da Hero — tudo com fallback completo em `prefers-reduced-motion`
-- **next/font** (Montserrat + Inter, self-hosted) e **next/image** para performance e zero layout shift
+| Camada | Tecnologia |
+|---|---|
+| Framework | Next.js 16 (App Router, Server Actions) + React 19 |
+| Linguagem | TypeScript (`strict`) |
+| Estilo | CSS vanilla orientado a *design tokens* (cores, tipografia, espaçamento, motion, elevação, raio) |
+| Animação | GSAP 3 + ScrollTrigger |
+| Banco de dados | Supabase (PostgreSQL com Row Level Security) via `@supabase/supabase-js` |
+| Validação | Zod 4 |
+| Fontes e imagens | `next/font` (Montserrat + Inter, self-hosted) e `next/image` |
 
-## Estrutura
+## Arquitetura
 
+```mermaid
+flowchart LR
+    V([Visitante]) --> UI[LeadForm<br/>client component]
+    UI -- "Server Action" --> SA[submitLead]
+    SA --> HP{Honeypot<br/>preenchido?}
+    HP -- sim --> OK1[Responde sucesso<br/>sem gravar]
+    HP -- não --> RL{Rate limit<br/>por IP}
+    RL -- excedeu --> ERR1[rate_limited]
+    RL -- ok --> ZV{Validação Zod<br/>server-side}
+    ZV -- inválido --> ERR2[validation / consent]
+    ZV -- válido --> DB[(Supabase<br/>tabela leads · RLS)]
+    DB --> OK2[ok + leadId]
 ```
+
+Decisão de projeto relevante: o `id` do lead é gerado no servidor (`randomUUID`) em vez de usar `INSERT ... RETURNING`, porque a chave `anon` **não possui policy de `SELECT` de propósito** — mesmo que a chave vaze, ninguém lê os leads de volta.
+
+### Estrutura de diretórios
+
+```text
 src/
-  app/            → layout, metadata/SEO, globals.css (tokens + estilos das seções)
-  data/site.ts     → conteúdo tipado, extraído do RESEARCH.md
-  components/
-    ui/            → primitivas do design system (Button, Quote, Callout, Section, Reveal...)
-    sections/      → Hero, Jornada, Marketing, Casos, Tecnologia, IA, Stack, Formação, Visão, Fechamento
-  hooks/           → useMagnetic (CTA magnético)
-  lib/gsap.ts      → registro único do GSAP/ScrollTrigger + guarda de reduced-motion
-  styles/tokens/   → cópia fiel dos tokens do design system (cores, tipografia, spacing, radius, elevation, motion)
-public/images/     → assets reais (retrato extraído do handoff do Claude Design)
+├── app/
+│   ├── actions/            # Server Actions (submitLead, checkSafeBrowsing)
+│   ├── politica-de-privacidade/
+│   ├── layout.tsx          # metadata, SEO, JSON-LD
+│   ├── robots.ts · sitemap.ts
+│   └── globals.css
+├── components/
+│   ├── sections/           # Hero, Jornada, Marketing, Casos, Tecnologia, IA, Formação, Fechamento…
+│   │   └── lead-form/      # formulário em etapas
+│   └── ui/                 # primitivas do design system (Button, Section, Reveal, Quote…)
+├── data/                   # conteúdo tipado (site.ts) e definição do formulário (leadForm.ts)
+├── hooks/                  # useLeadTracking, useMagnetic
+├── lib/
+│   ├── leads/              # schema (Zod), rateLimit, score
+│   ├── supabase/server.ts  # cliente Supabase server-only
+│   └── gsap.ts             # registro único do GSAP + guarda de reduced-motion
+└── styles/tokens/          # tokens do design system
+supabase/migrations/        # schema versionado + endurecimento de RLS
+public/                     # marca, imagens e mídia dos cases
 ```
 
-## Rodando localmente
+## Requisitos
+
+- Node.js 20.9 ou superior (requisito do Next.js 16)
+- npm
+- Um projeto Supabase (para o formulário gravar leads)
+
+## Como executar localmente
 
 ```bash
+git clone https://github.com/Gabriel-serra-eng/biel-strategy.git
+cd biel-strategy
 npm install
+cp .env.example .env.local   # preencha os valores
 npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000).
+Acesse [http://localhost:3000](http://localhost:3000).
 
-```bash
-npm run build   # build de produção
-npm run lint    # eslint
-```
+Para criar a tabela de leads, aplique em ordem os arquivos de `supabase/migrations/` no seu projeto Supabase (SQL editor ou Supabase CLI).
 
-## Pendências conhecidas (`[VALIDAR]`)
+### Variáveis de ambiente
 
-O site sinaliza explicitamente, na própria interface, os dados ainda não confirmados pelo Research: sobrenome, WhatsApp comercial, e-mail, LinkedIn/GitHub, nome exato do curso em andamento, links de certificados auditáveis e a aprovação final do nome "Studio Unna Nail Spa" no case. Nenhum desses campos foi preenchido com suposição.
+Todas são lidas apenas no servidor — **nenhuma** usa o prefixo `NEXT_PUBLIC_`.
+
+| Variável | Obrigatória | Descrição |
+|---|---|---|
+| `SUPABASE_URL` | Sim | URL do projeto Supabase |
+| `SUPABASE_ANON_KEY` | Sim | Chave `anon` (só consegue `INSERT` em `leads`, por RLS) |
+| `SAFE_BROWSING_API_KEY` | Não | Habilita o selo Google Safe Browsing; sem ela, o selo exibe "Verificação indisponível" e nada quebra |
+
+### Scripts
+
+| Comando | Função |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção (`next build --webpack`) |
+| `npm run start` | Serve o build de produção |
+| `npm run lint` | ESLint |
+
+## Testes e validações
+
+- ESLint e checagem de tipos (`tsc --noEmit`) executam sem erros.
+- A validação de entrada é feita pelo schema Zod no servidor.
+- **Ainda não há testes automatizados** (unitários ou E2E) nem pipeline de CI — veja *Próximas melhorias*.
+
+## Limitações conhecidas
+
+- O rate limit é em memória: funciona bem em um único processo Node (`next start`), mas em ambientes serverless com várias instâncias o limite passa a ser por instância. A evolução recomendada (contador compartilhado, como Redis) já está registrada em `LEAD_SYSTEM_RESEARCH.md`.
+- O cálculo de *lead score* está **intencionalmente desativado** (`score_version = unscored-v0`) até a metodologia ser validada; o schema já está pronto para ativá-lo sem nova migration.
+- A Content-Security-Policy ficou de fora por enquanto, para não quebrar a hidratação do Next.js e os scripts JSON-LD.
+
+## Próximas melhorias
+
+Itens já registrados na documentação do projeto:
+
+- [ ] Rate limit distribuído (ex.: Upstash Redis)
+- [ ] Ativar o lead score após validação da metodologia
+- [ ] Content-Security-Policy
+
+## Documentação do projeto
+
+| Documento | Conteúdo |
+|---|---|
+| [`RESEARCH.md`](./RESEARCH.md) | Fonte de verdade do conteúdo: trajetória, competências, cases, stack |
+| [`IMPLEMENTATION.md`](./IMPLEMENTATION.md) | Contrato técnico: arquitetura, performance, acessibilidade, SEO |
+| [`LEAD_SYSTEM_RESEARCH.md`](./LEAD_SYSTEM_RESEARCH.md) | Pesquisa de arquitetura do sistema de leads e tracking |
+| [`LEAD_FORM_IMPLEMENTATION.md`](./LEAD_FORM_IMPLEMENTATION.md) | Implementação do formulário nativo + Supabase |
+| [`SITE_PROJECT_CONTEXT.md`](./SITE_PROJECT_CONTEXT.md) | Contexto consolidado do projeto |
+
+## Autor
+
+**Gabriel Serra** — [GitHub](https://github.com/Gabriel-serra-eng)
