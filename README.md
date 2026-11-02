@@ -167,6 +167,25 @@ Itens já registrados na documentação do projeto:
 | [`LEAD_FORM_IMPLEMENTATION.md`](./LEAD_FORM_IMPLEMENTATION.md) | Implementação do formulário nativo + Supabase |
 | [`SITE_PROJECT_CONTEXT.md`](./SITE_PROJECT_CONTEXT.md) | Contexto consolidado do projeto |
 
+## Processo de desenvolvimento com IA
+
+O projeto foi construído com um fluxo de desenvolvimento assistido por IA, em etapas que deixaram artefatos neste repositório. **A aplicação não chama modelos de IA em tempo de execução**: a IA está no processo de construção, não no produto.
+
+| Etapa | Ferramenta | Artefato |
+|---|---|---|
+| 1. Pesquisa e fonte de verdade do conteúdo | Pesquisa própria, organizada com apoio de IA | [`RESEARCH.md`](./RESEARCH.md) |
+| 2. Protótipo visual | Claude Design | Design tokens em `src/styles/tokens/` |
+| 3. Contrato técnico para o agente (fidelidade ao design, segurança, SEO, acessibilidade) | Escrito antes do código | [`IMPLEMENTATION.md`](./IMPLEMENTATION.md), `CLAUDE.md` |
+| 4. Implementação e evolução | Claude Code | Histórico de commits, com co-autoria registrada |
+| 5. Pesquisa de arquitetura do sistema de leads | Agente de pesquisa, com fontes citadas e pontos não confirmados sinalizados | [`LEAD_SYSTEM_RESEARCH.md`](./LEAD_SYSTEM_RESEARCH.md) |
+| 6. Auditoria do código implementado | Antigravity | [`SITE_PROJECT_CONTEXT_ANTIGRAVITY.md`](./SITE_PROJECT_CONTEXT_ANTIGRAVITY.md) |
+
+### Responsabilidades
+
+- **Minhas:** definição do problema e do público, conteúdo e cases reais, aprovação do design, escolha do Supabase a partir da pesquisa comparativa, decisão de manter o lead score desligado até validar a metodologia, decisão de esconder seções sem evidência pública (Lead Radar), deploy e operação do site em produção.
+- **Com assistência de IA:** escrita do código (Claude Code), pesquisa técnica comparativa, auditoria do estado do projeto, correções de build e de segurança (RLS).
+- **Gerado por ferramentas:** o protótipo visual de origem (Claude Design) e o bloco de regras em `AGENTS.md`, criado automaticamente pelo `next dev`.
+
 ## Autor
 
 **Gabriel Serra** — [GitHub](https://github.com/Gabriel-serra-eng)
