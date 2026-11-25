@@ -31,55 +31,66 @@ function writeStored(attribution: Attribution) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(attribution));
   } catch {
     // localStorage indisponível (modo privado, quota etc.) — segue sem persistir;
-    // a atribuição ainda funciona para o envio da mesma sessão via closure em memória.
+    // a atribuição ainda funciona na mesma sessão pela cópia em memória abaixo.
   }
 }
 
 /**
+ * Cópia em memória da atribuição da sessão. Sobrevive à navegação client-side entre as
+ * áreas do site (o módulo não é recarregado), então a campanha capturada na página de
+ * chegada continua disponível em /contato mesmo com o localStorage indisponível.
+ */
+let sessionAttribution: Attribution | null = null;
+
+/**
  * Captura UTM/gclid/fbclid/landing_page/referrer na chegada ao site e
  * preserva até o envio do formulário — mesmo que a URL não contenha mais
- * os parâmetros depois de navegar pela página (SPA de seção única).
+ * os parâmetros depois de navegar entre as áreas do site.
  *
  * Modelo "first-touch": o primeiro valor não vazio capturado é o que fica.
  * Uma visita de retorno sem UTM (ex.: digitou a URL direto) não apaga a
  * campanha que originalmente trouxe o visitante.
+ *
+ * Roda no layout raiz (AttributionCapture — página de chegada, qualquer área) e de novo
+ * quando o formulário monta; a segunda chamada só completa campos ainda vazios.
  */
+export function captureAttribution(): Attribution {
+  const stored = readStored();
+  const params = new URLSearchParams(window.location.search);
+  const next: Attribution = { ...sessionAttribution, ...stored };
+
+  let changed = false;
+  for (const key of TRACKED_PARAMS) {
+    const value = params.get(key);
+    if (value && !next[key]) {
+      next[key] = value;
+      changed = true;
+    }
+  }
+
+  if (!next.landing_page) {
+    next.landing_page = window.location.href;
+    changed = true;
+  }
+  if (!next.referrer && document.referrer) {
+    next.referrer = document.referrer;
+    changed = true;
+  }
+  if (!next.first_contact_at) {
+    next.first_contact_at = new Date().toISOString();
+    changed = true;
+  }
+
+  sessionAttribution = next;
+  if (changed) writeStored(next);
+  return next;
+}
+
 export function useLeadTracking() {
   const attributionRef = useRef<Attribution>({});
-  const initialized = useRef(false);
 
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
-    const stored = readStored();
-    const params = new URLSearchParams(window.location.search);
-    const next: Attribution = { ...stored };
-
-    let changed = false;
-    for (const key of TRACKED_PARAMS) {
-      const value = params.get(key);
-      if (value && !next[key]) {
-        next[key] = value;
-        changed = true;
-      }
-    }
-
-    if (!next.landing_page) {
-      next.landing_page = window.location.href;
-      changed = true;
-    }
-    if (!next.referrer && document.referrer) {
-      next.referrer = document.referrer;
-      changed = true;
-    }
-    if (!next.first_contact_at) {
-      next.first_contact_at = new Date().toISOString();
-      changed = true;
-    }
-
-    attributionRef.current = next;
-    if (changed) writeStored(next);
+    attributionRef.current = captureAttribution();
   }, []);
 
   function getAttribution(): Attribution {

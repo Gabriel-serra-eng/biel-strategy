@@ -3,9 +3,9 @@
 import { Section, SectionTitle, Kicker, Reveal } from "@/components/ui";
 import { CERTS } from "@/data/site";
 
-export function Formacao() {
+export function Formacao({ n = "06" }: { n?: string }) {
   return (
-    <Section id="formacao" n="06" label="Formação">
+    <Section id="formacao" n={n} label="Formação">
       <div className="two-col">
         <div>
           <SectionTitle accent="que sustenta a prática.">Formação</SectionTitle>

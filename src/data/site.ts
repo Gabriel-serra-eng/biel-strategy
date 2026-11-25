@@ -102,6 +102,8 @@ export const NIVEIS: NivelStack[] = [
 export interface CasoStat {
   valor: string;
   rotulo: string;
+  /** Etapa do funil do case a que o número corresponde (ex.: "Clique", "WhatsApp"). */
+  etapa?: string;
 }
 
 export interface CasoCarrosselSlide {
@@ -174,8 +176,8 @@ export const CASOS: Caso[] = [
     funil: ["Anúncio", "Clique", "WhatsApp", "Oportunidade"],
     resultadosRotulo: "Em 30 dias",
     stats: [
-      { valor: "830", rotulo: "cliques gerados pelos anúncios" },
-      { valor: "129", rotulo: "contatos iniciados pelo WhatsApp através dos anúncios" },
+      { valor: "830", rotulo: "cliques gerados pelos anúncios", etapa: "Clique" },
+      { valor: "129", rotulo: "contatos iniciados pelo WhatsApp através dos anúncios", etapa: "WhatsApp" },
     ],
     statsNota: "Dados registrados no Gerenciador de Anúncios.",
     carrossel: {
@@ -258,14 +260,73 @@ export const CERTS: string[] = [
   "Automação & Suporte de TI",
 ];
 
+/** Áreas do site — cada uma é uma rota própria dentro da mesma aplicação (navegação client-side). */
 export const NAV_LINKS: { href: string; label: string }[] = [
-  { href: "#jornada", label: "Método" },
-  { href: "#marketing", label: "Marketing" },
-  { href: "#casos", label: "Cases" },
-  { href: "#tecnologia", label: "Tecnologia" },
-  { href: "#ia", label: "IA" },
-  { href: "#formacao", label: "Formação" },
+  { href: "/", label: "Home" },
+  { href: "/sobre", label: "Sobre" },
+  { href: "/servicos", label: "Serviços" },
+  { href: "/cases", label: "Cases" },
+  { href: "/contato", label: "Contato" },
 ];
+
+/**
+ * Links antigos da página única (ex.: bielstrategy.com/#casos em anúncios ou mensagens já
+ * enviados) → nova rota de cada conteúdo. Usado na Home para não quebrar esses links.
+ */
+export const LEGACY_HASH_ROUTES: Record<string, string> = {
+  hero: "/",
+  jornada: "/servicos#jornada",
+  marketing: "/servicos#marketing",
+  casos: "/cases",
+  tecnologia: "/servicos#tecnologia",
+  ia: "/sobre#ia",
+  formacao: "/sobre#formacao",
+  contato: "/contato",
+};
+
+/** Texto de apresentação (antes no Método da página única) — agora abre a área Sobre. */
+export const SOBRE_LEDE =
+  "Ajudo empresas a atrair clientes com estratégia de marketing digital e tráfego pago, organizando a aquisição do primeiro clique até a conversa comercial. Cada negócio tem um contexto, um público e um momento diferentes, por isso não existe estratégia pronta que sirva para todos. Primeiro entendo o seu cenário. Depois defino o caminho.";
+
+export interface Servico {
+  slug: string;
+  name: string;
+  description: string;
+}
+
+/**
+ * Serviços — mesmos textos já usados no JSON-LD (layout.tsx), agora também exibidos na área
+ * Serviços. Fonte única: alterar aqui muda os dois lugares.
+ */
+export const SERVICOS: Servico[] = [
+  {
+    slug: "estrategia-de-marketing-digital",
+    name: "Estratégia de marketing digital e aquisição de clientes",
+    description:
+      "Diagnóstico do negócio, definição de canais e mensagem, e estratégia de aquisição de clientes construída a partir do contexto de cada empresa.",
+  },
+  {
+    slug: "trafego-pago",
+    name: "Tráfego pago: Google Ads e Meta Ads",
+    description:
+      "Construção e gestão de campanhas de Google Ads e Meta Ads orientadas à geração de leads e conversas, com otimização contínua.",
+  },
+  {
+    slug: "landing-pages",
+    name: "Landing pages para conversão",
+    description:
+      "Landing pages e formulários sob medida, pensados desde a origem para receber tráfego pago e transformar visitas em leads.",
+  },
+  {
+    slug: "rastreamento-e-mensuracao",
+    name: "Rastreamento e mensuração",
+    description:
+      "Rastreamento de origem e conversão para orientar decisões de investimento com base em dados.",
+  },
+];
+
+/** WhatsApp comercial — o mesmo link usado no botão flutuante, no menu e nos CTAs. */
+export const WHATSAPP_URL = "https://wa.me/5511920115354";
 
 export const CHAPTER_IDS: string[] = [
   "hero",

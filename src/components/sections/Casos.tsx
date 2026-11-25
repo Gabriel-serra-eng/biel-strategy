@@ -2,60 +2,22 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Section, SectionTitle, Reveal, Callout, Pending, Button, scrollToSection } from "@/components/ui";
+import { useRouter } from "next/navigation";
+import { Section, SectionTitle, Reveal, Callout, Pending, Button } from "@/components/ui";
 import { CASOS } from "@/data/site";
+import { ResultadoFunil } from "./ResultadoFunil";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
-
-/** Contagem de 0 até o valor ao entrar na viewport — mesmo gatilho de scroll do <Reveal>. */
-function CasoStatValue({ value }: { value: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const target = parseInt(value.replace(/\D/g, ""), 10);
-    if (Number.isNaN(target)) {
-      el.textContent = value;
-      return;
-    }
-    if (prefersReducedMotion()) {
-      el.textContent = value;
-      return;
-    }
-    const { gsap, ScrollTrigger } = ensureGsap();
-    const counter = { n: 0 };
-    const trigger = ScrollTrigger.create({
-      trigger: el,
-      start: "top 88%",
-      once: true,
-      onEnter: () => {
-        // Só zera o número quando a animação realmente vai rodar (elemento entrou na viewport).
-        // Se isso rodasse incondicionalmente no mount, um crawler que renderiza a página sem
-        // rolar a tela (ex.: Googlebot) poderia indexar "0" no lugar do valor real do resultado.
-        el.textContent = "0";
-        gsap.to(counter, {
-          n: target,
-          duration: 1.4,
-          ease: "power2.out",
-          onUpdate: () => {
-            el.textContent = String(Math.round(counter.n));
-          },
-        });
-      },
-    });
-    return () => trigger.kill();
-  }, [value]);
-
-  return (
-    <span className="caso-stat-v" ref={ref}>
-      {value}
-    </span>
-  );
-}
 
 const VISIBLE_CASOS = CASOS.filter((c) => !c.oculto);
 
-export function Casos() {
+interface CasosProps {
+  n?: string;
+  /** h1 quando a seção abre a área Cases. */
+  titleAs?: "h1" | "h2";
+}
+
+export function Casos({ n = "03", titleAs = "h2" }: CasosProps) {
+  const router = useRouter();
   const [ab, setAb] = useState(0);
   const [slide, setSlide] = useState(0);
   const [outgoing, setOutgoing] = useState<number | null>(null);
@@ -150,10 +112,12 @@ export function Casos() {
   }, [slide, slides, outgoing]);
 
   return (
-    <Section id="casos" n="03" label="Cases" className="sec-hero">
+    <Section id="casos" n={n} label="Cases" className="sec-hero">
       <div className="two-col traj-intro">
         <div>
-          <SectionTitle accent="e geração de leads.">Cases reais de marketing</SectionTitle>
+          <SectionTitle as={titleAs} accent="e geração de leads.">
+            Cases reais de marketing
+          </SectionTitle>
         </div>
       </div>
 
@@ -206,16 +170,9 @@ export function Casos() {
             </div>
             {c.stats ? (
               <div className="caso-block">
-                <span className="caso-l">{c.resultadosRotulo ?? "Resultados"}</span>
-                <div className="caso-stats">
-                  {c.stats.map((s, i) => (
-                    <Reveal key={s.rotulo} d={i * 120} className="caso-stat">
-                      <CasoStatValue value={s.valor} />
-                      <span className="caso-stat-l">{s.rotulo}</span>
-                    </Reveal>
-                  ))}
-                </div>
-                {c.statsNota ? <span className="caso-stats-nota">{c.statsNota}</span> : null}
+                <span className="caso-l">Resultados</span>
+                {/* key: remonta (e reanima) ao trocar de case */}
+                <ResultadoFunil key={c.t} caso={c} />
               </div>
             ) : null}
             {c.nota ? (
@@ -394,7 +351,7 @@ export function Casos() {
             ) : null}
             {c.cta.tag ? <span className="kicker kicker-accent">{c.cta.tag}</span> : null}
             <div className="fim-cta">
-              <Button variant="primary" size="lg" onClick={() => scrollToSection("contato")}>
+              <Button variant="primary" size="lg" onClick={() => router.push("/contato")}>
                 {c.cta.botao}
               </Button>
             </div>

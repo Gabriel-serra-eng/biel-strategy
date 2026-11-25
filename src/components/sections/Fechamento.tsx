@@ -1,23 +1,29 @@
 "use client";
 
-import Link from "next/link";
-import { Reveal, BrandMark } from "@/components/ui";
+import { Reveal } from "@/components/ui";
 import { LeadForm } from "@/components/sections/lead-form/LeadForm";
-import { SecurityStatus } from "@/components/sections/SecurityStatus";
-import { SafeBrowsingStatus } from "@/components/sections/SafeBrowsingStatus";
 
-export function Fechamento() {
+interface FechamentoProps {
+  /** h1 quando a seção abre a área Contato. */
+  titleAs?: "h1" | "h2";
+}
+
+/**
+ * Contato: formulário + canais. O rodapé (marca, Security Status, Safe Browsing e Política de
+ * Privacidade) saiu daqui para o SiteFooter, que aparece em todas as áreas do site.
+ */
+export function Fechamento({ titleAs: H = "h2" }: FechamentoProps) {
   return (
     <section id="contato" data-screen-label="Fechamento" className="fim">
       <Reveal className="fim-inner">
         <p className="fim-kicker">Próximo passo</p>
-        <h2 className="fim-title">
+        <H className="fim-title">
           Quando existe intenção,
           <br />
           alguém precisa estar lá
           <br />
           <span className="ac">preparado.</span>
-        </h2>
+        </H>
         <LeadForm />
         <div className="fim-meta">
           <div>
@@ -34,17 +40,6 @@ export function Fechamento() {
           {/* E-mail anterior (angelicaisanuncios@gmail.com) mantido apenas em histórico/git — não exibido no site. */}
         </div>
       </Reveal>
-      <div className="fim-foot">
-        <span>
-          <BrandMark iconSize={20} wordmarkSize={12} />
-        </span>
-        <span>Marketing de aquisição · Tecnologia · IA</span>
-        <SecurityStatus />
-        <SafeBrowsingStatus />
-        <Link className="fim-legal" href="/politica-de-privacidade">
-          Política de Privacidade
-        </Link>
-      </div>
     </section>
   );
 }

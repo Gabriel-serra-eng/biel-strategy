@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
-import { OG_IMAGE, SITE_META, SITE_URL } from "@/data/site";
+import { OG_IMAGE, SERVICOS, SITE_META, SITE_URL } from "@/data/site";
 import { WhatsAppButton } from "@/components/sections/WhatsAppButton";
+import { AttributionCapture } from "@/components/sections/lead-form/AttributionCapture";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -55,33 +56,8 @@ export const metadata: Metadata = {
 
 // Dados reais e já confirmados do projeto — nenhum campo inventado (sem endereço, CNPJ,
 // redes sociais ou avaliações, que o negócio ainda não tem validados).
-// Serviços descritos como aparecem na página (seções Marketing, Cases e Execução).
-const SERVICES = [
-  {
-    slug: "estrategia-de-marketing-digital",
-    name: "Estratégia de marketing digital e aquisição de clientes",
-    description:
-      "Diagnóstico do negócio, definição de canais e mensagem, e estratégia de aquisição de clientes construída a partir do contexto de cada empresa.",
-  },
-  {
-    slug: "trafego-pago",
-    name: "Tráfego pago: Google Ads e Meta Ads",
-    description:
-      "Construção e gestão de campanhas de Google Ads e Meta Ads orientadas à geração de leads e conversas, com otimização contínua.",
-  },
-  {
-    slug: "landing-pages",
-    name: "Landing pages para conversão",
-    description:
-      "Landing pages e formulários sob medida, pensados desde a origem para receber tráfego pago e transformar visitas em leads.",
-  },
-  {
-    slug: "rastreamento-e-mensuracao",
-    name: "Rastreamento e mensuração",
-    description:
-      "Rastreamento de origem e conversão para orientar decisões de investimento com base em dados.",
-  },
-];
+// Serviços: mesma lista exibida na área /servicos (fonte única em src/data/site.ts).
+const SERVICES = SERVICOS;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -134,11 +110,15 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable}`}>
+    // data-scroll-behavior="smooth": o Next 16 só zera o scroll-behavior suave durante a troca de
+    // rota com este atributo — sem ele, cada navegação entre áreas rolaria animada até o topo.
+    <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable}`} data-scroll-behavior="smooth">
       <body>
         <a className="skip-link" href="#main">
           Pular para o conteúdo
         </a>
+        {/* Antes de {children}: captura UTM/gclid na página de chegada, qualquer que seja a área. */}
+        <AttributionCapture />
         {children}
         <WhatsAppButton />
         <script

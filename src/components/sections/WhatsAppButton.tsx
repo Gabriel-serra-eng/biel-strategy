@@ -1,4 +1,4 @@
-const WHATSAPP_URL = "https://wa.me/5511920115354";
+import { WHATSAPP_URL } from "@/data/site";
 
 /**
  * Botão flutuante de WhatsApp — chrome persistente do site (mesmo nível que

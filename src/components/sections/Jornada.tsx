@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Section, SectionTitle, Reveal } from "@/components/ui";
+import { Section, SectionTitle } from "@/components/ui";
 import { FASES } from "@/data/site";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 
-export function Jornada() {
+interface JornadaProps {
+  n?: string;
+}
+
+/** Método — as 5 fases. O texto de apresentação que abria esta seção agora abre a área Sobre. */
+export function Jornada({ n = "01" }: JornadaProps) {
   const [ativa, setAtiva] = useState(0);
   const railRef = useRef<HTMLDivElement | null>(null);
   const flowRef = useRef<HTMLDivElement | null>(null);
@@ -33,21 +38,11 @@ export function Jornada() {
   }, [ativa]);
 
   return (
-    <Section id="jornada" n="01" label="Método" className="sec-jornada">
-      <div className="two-col traj-intro">
-        <div>
-          <SectionTitle accent="entender o negócio." size="lg">
-            Antes de anunciar,
-          </SectionTitle>
-        </div>
-        <Reveal d={80} className="col-body">
-          <p className="lede">
-            Ajudo empresas a atrair clientes com estratégia de marketing digital e tráfego pago,
-            organizando a aquisição do primeiro clique até a conversa comercial. Cada negócio tem um contexto, um público e um momento diferentes,
-            por isso não existe estratégia pronta que sirva para todos. Primeiro entendo o seu
-            cenário. Depois defino o caminho.
-          </p>
-        </Reveal>
+    <Section id="jornada" n={n} label="Método" className="sec-jornada">
+      <div className="traj-intro">
+        <SectionTitle accent="entender o negócio." size="lg">
+          Antes de anunciar,
+        </SectionTitle>
       </div>
       <div className="traj">
         <aside className="traj-rail" aria-hidden="true">

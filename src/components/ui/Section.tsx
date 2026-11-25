@@ -24,13 +24,15 @@ interface SectionTitleProps {
   size?: "lg";
   rule?: boolean;
   id?: string;
+  /** h1 quando o título abre a página (cada área tem o seu H1); h2 no restante. */
+  as?: "h1" | "h2";
 }
 
 /** Título de seção: caixa alta, última palavra em carmesim. */
-export function SectionTitle({ children, accent, size = "lg", rule = false, id }: SectionTitleProps) {
+export function SectionTitle({ children, accent, size = "lg", rule = false, id, as: H = "h2" }: SectionTitleProps) {
   return (
     <div className="sec-title-wrap">
-      <h2 id={id} className={"sec-title sec-title-" + size}>
+      <H id={id} className={"sec-title sec-title-" + size}>
         {children}
         {accent ? (
           <>
@@ -38,7 +40,7 @@ export function SectionTitle({ children, accent, size = "lg", rule = false, id }
             <span className="ac">{accent}</span>
           </>
         ) : null}
-      </h2>
+      </H>
       {rule ? <RuleWipeClient /> : null}
     </div>
   );

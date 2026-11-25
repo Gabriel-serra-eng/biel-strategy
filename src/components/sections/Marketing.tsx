@@ -1,18 +1,24 @@
 import { Section, Kicker, Reveal, Quote } from "@/components/ui";
 import { COMPETENCIAS_MARKETING, FUNIL_STEPS } from "@/data/site";
 
-export function Marketing() {
+interface MarketingProps {
+  n?: string;
+  /** h1 quando a seção abre a área Serviços. */
+  titleAs?: "h1" | "h2";
+}
+
+export function Marketing({ n = "02", titleAs: H = "h2" }: MarketingProps) {
   return (
-    <Section id="marketing" n="02" label="Estratégia de aquisição" className="sec-mkt">
+    <Section id="marketing" n={n} label="Estratégia de aquisição" className="sec-mkt">
       <div className="mkt-open">
         <Reveal>
-          <h2 className="mega">
+          <H className="mega">
             Estratégia antes da mídia.
             <br />
             Dados antes da decisão.
             <br />
             <span className="ac">Otimização antes da escala.</span>
-          </h2>
+          </H>
         </Reveal>
       </div>
 

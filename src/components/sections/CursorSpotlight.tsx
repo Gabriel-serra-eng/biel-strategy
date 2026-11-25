@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const SELECTOR = ".chip,.caso-tab,.nivel-item,.vc,.ia-tool";
+const SELECTOR = ".chip,.caso-tab,.nivel-item,.vc,.ia-tool,.svc-card";
 
 /** Spotlight sutil que segue o cursor sobre chips/cards — leve, sem necessidade de GSAP. */
 export function CursorSpotlight() {

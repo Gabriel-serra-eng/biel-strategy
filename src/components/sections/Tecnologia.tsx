@@ -1,9 +1,9 @@
 import { Section, SectionTitle, Reveal } from "@/components/ui";
 import { COMPETENCIAS_TECNOLOGIA } from "@/data/site";
 
-export function Tecnologia() {
+export function Tecnologia({ n = "04" }: { n?: string }) {
   return (
-    <Section id="tecnologia" n="04" label="Execução">
+    <Section id="tecnologia" n={n} label="Execução">
       <div className="two-col">
         <div>
           <SectionTitle accent="que sustenta a estratégia.">Tecnologia</SectionTitle>

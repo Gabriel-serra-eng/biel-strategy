@@ -1,9 +1,9 @@
 import { Section, SectionTitle, Reveal } from "@/components/ui";
 import { COMPETENCIAS_IA } from "@/data/site";
 
-export function IA() {
+export function IA({ n = "05" }: { n?: string }) {
   return (
-    <Section id="ia" n="05" label="IA como apoio" className="sec-ia">
+    <Section id="ia" n={n} label="IA como apoio" className="sec-ia">
       <div className="two-col">
         <div>
           <SectionTitle accent="amplia o que já existe.">A IA</SectionTitle>
