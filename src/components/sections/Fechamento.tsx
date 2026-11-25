@@ -30,11 +30,17 @@ export function Fechamento({ titleAs: H = "h2" }: FechamentoProps) {
         ) : (
           // Formulário oculto (ver LEAD_FORM_ENABLED): o mesmo CTA de WhatsApp do resto do site
           // ocupa o lugar dele, para a área não ficar com um espaço vazio.
-          <div className="fim-cta">
-            <a className="btn btn-primary btn-lg" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              Agende sua reunião
-            </a>
-          </div>
+          <>
+            <p className="fim-lede fim-wa-lede">
+              Mande uma mensagem pelo WhatsApp e agende sua reunião. Conte rapidamente sobre o seu
+              negócio e combinamos o melhor horário para conversar.
+            </p>
+            <div className="fim-cta">
+              <a className="btn btn-primary btn-lg" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                Agendar pelo WhatsApp
+              </a>
+            </div>
+          </>
         )}
         <div className="fim-meta">
           <div>

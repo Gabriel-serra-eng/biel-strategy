@@ -124,7 +124,7 @@ p{margin:0;text-wrap:pretty}
 .hero-lede{max-width:56ch;margin-top:clamp(26px,3.5vw,40px)}
 .hero-lede p{font:var(--weight-regular) clamp(15px,1.15vw,18px)/1.75 var(--font-sans);color:var(--text-body)}
 .hero-cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:36px}
-.link-quiet{font:var(--weight-medium) 13px/1 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:0;cursor:pointer;padding:0}
+.link-quiet{display:inline-block;font:var(--weight-medium) 13px/1 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:0;cursor:pointer;padding:8px 0;margin:-8px 0}
 .link-quiet:hover{color:var(--white)}
 .hero-note{margin-top:28px;font:var(--weight-regular) 12px/1.6 var(--font-sans);color:var(--text-faint)}
 .hero-portrait{position:relative;aspect-ratio:4/5;background:var(--surface-page);overflow:hidden}
@@ -292,8 +292,9 @@ p{margin:0;text-wrap:pretty}
 .caso-stat-l{display:block;margin-top:10px;font:var(--weight-regular) 13.5px/1.5 var(--font-sans);color:var(--text-muted);max-width:22ch}
 .caso-stats-nota{display:block;margin-top:20px;font:var(--weight-regular) 12px/1.5 var(--font-sans);color:var(--text-faint)}
 .caso-carrossel-nav{display:flex;align-items:center;gap:8px}
-.caso-carrossel-dot{width:14px;height:1px;background:var(--border-strong);border:0;padding:0;cursor:pointer;transition:.5s}
-.caso-carrossel-dot.on{width:26px;background:var(--carmesim-500)}
+/* o traço visível tem 1px; o botão tem 24px de altura para ser tocável no celular (WCAG 2.5.8) */
+.caso-carrossel-dot{width:24px;height:24px;background:linear-gradient(var(--border-strong),var(--border-strong)) left center/14px 1px no-repeat;border:0;padding:0;cursor:pointer;transition:.5s}
+.caso-carrossel-dot.on{width:26px;background-image:linear-gradient(var(--carmesim-500),var(--carmesim-500));background-size:26px 1px}
 .caso-carrossel-count{margin-left:auto;font:var(--weight-bold) 9.5px/1 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint)}
 .caso-cta{margin-top:clamp(64px,10vh,120px);padding-top:clamp(48px,7vh,80px);border-top:1px solid var(--border-hairline)}
 .caso-cta-reforco{margin-top:28px;font:var(--weight-bold) clamp(17px,1.8vw,22px)/1.5 var(--font-sans);color:var(--white)}
@@ -362,7 +363,7 @@ p{margin:0;text-wrap:pretty}
 .fim-security-label{color:var(--text-faint)}
 .fim-security-check{display:inline-flex;align-items:center;gap:5px}
 .fim-security-check>span:first-child{color:var(--carmesim-500)}
-.fim-legal{color:inherit;text-decoration:none;transition:opacity .2s}
+.fim-legal{display:inline-block;padding:6px 0;margin:-6px 0;color:inherit;text-decoration:none;transition:opacity .2s}
 .fim-legal:hover{opacity:.72}
 .fim-safebrowsing{display:inline-flex;flex-direction:column;gap:3px;text-decoration:none;color:inherit;transition:opacity .2s}
 .fim-safebrowsing:hover{opacity:.72}
@@ -453,7 +454,7 @@ a.btn-primary:hover,a.btn-primary:focus{color:var(--white)}
 @keyframes pageEnter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* rodapé comum */
-.site-foot{padding:0 var(--marg)}
+.site-foot{padding:0 var(--marg) 56px} /* respiro inferior: o botão flutuante do WhatsApp não cobre o último link */
 
 /* home — 1. composição tipográfica em movimento (ver HomeHero.tsx) */
 .kt{--kt-rosa:#E63870;position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,5vh,56px);padding:118px 0 56px;overflow:hidden;background:var(--surface-page)}
@@ -566,6 +567,9 @@ a.btn-primary:hover,a.btn-primary:focus{color:var(--white)}
 .hm-d{font:var(--weight-regular) 14px/1.6 var(--font-sans);color:var(--text-muted)}
 .hm-link{display:inline-block;margin-top:clamp(36px,5vh,56px)}
 @media(max-width:860px){.hm-line{right:auto;bottom:6px;width:1px;height:auto}.hm-line i{transform-origin:center top;transform:scaleY(var(--hm-p))}.hm-steps{grid-template-columns:1fr;gap:30px;padding-left:34px}.hm-dot{position:absolute;left:-34px;top:0}.hm-n{margin-top:0}}
+
+/* celular e tablet: rótulos em caixa alta com no mínimo 11px (legibilidade) */
+@media(max-width:1023px){.rf-path,.rf-etapa,.ss-t,.fase-w,.caso-tab-e,.caso-eixo,.caso-l,.caso-carrossel-count,.fim-meta span,.chapmark-l,.kicker,.lf-label,.nivel-n,.vc-st,.cert-inst,.garg-l{font-size:11px}}
 
 /* faixa final: ações lado a lado */
 .cta-band-actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:20px 28px}
