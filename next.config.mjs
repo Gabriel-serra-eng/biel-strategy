@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   /* config options here */
+  // Não anuncia a tecnologia do servidor no cabeçalho X-Powered-By (recomendação OWASP:
+  // reduz a informação disponível para quem procura versões vulneráveis).
+  poweredByHeader: false,
   async headers() {
     // Cabeçalhos de segurança HTTP padrão, sem risco de quebrar nada existente (nenhuma API de
     // câmera/mic/geolocalização/pagamento é usada no site, e o site nunca precisa ser embutido em
