@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui";
-import { CASOS, WHATSAPP_URL } from "@/data/site";
+import { CASOS, LEAD_FORM_ENABLED, WHATSAPP_URL } from "@/data/site";
 
 // Texto do fechamento do case Landing Page — "Do clique ao lead." (fonte única em site.ts).
 const CTA = CASOS.find((c) => c.eixo.startsWith("Landing Page"))?.cta;
@@ -28,9 +28,11 @@ export function CtaBand({ whatsapp = false }: { whatsapp?: boolean }) {
               <a className="btn btn-primary btn-lg" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 Agende sua reunião
               </a>
-              <Link href="/contato" className="link-quiet">
-                Prefere o formulário? →
-              </Link>
+              {LEAD_FORM_ENABLED ? (
+                <Link href="/contato" className="link-quiet">
+                  Prefere o formulário? →
+                </Link>
+              ) : null}
             </>
           ) : (
             <Link href="/contato" className="btn btn-primary btn-lg">

@@ -328,6 +328,14 @@ export const SERVICOS: Servico[] = [
 /** WhatsApp comercial — o mesmo link usado no botão flutuante, no menu e nos CTAs. */
 export const WHATSAPP_URL = "https://wa.me/5511920115354";
 
+/**
+ * Formulário de contato (pré-diagnóstico → Supabase). OCULTO por enquanto, não removido: o
+ * componente, a server action e a integração continuam no projeto. Enquanto estiver false,
+ * a área Contato mostra o botão do WhatsApp no lugar e a Home não cita o formulário.
+ * Para reativar: true (e conferir que o projeto Supabase está ativo).
+ */
+export const LEAD_FORM_ENABLED = false;
+
 export const CHAPTER_IDS: string[] = [
   "hero",
   "jornada",
